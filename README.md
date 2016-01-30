@@ -1,2 +1,1 @@
-# OhMeteor
-Meteor入门教程
+# Meteor入门教程
