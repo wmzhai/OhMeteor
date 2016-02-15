@@ -41,7 +41,7 @@ meteor
 
 等项目启动以后 ，用Chrome访问 http://localhost:3000即可。
 
-## 调试
+## 断点调试
 
 Webstorm和Chrome的整合支持meteor的断点调试。
 
