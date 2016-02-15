@@ -12,8 +12,8 @@
     "url": "http://github.com/wmzhai/meteor-intro.git"
   },
   "scripts": {
-    "build": "spec-md content/index.md > out/index.html",
+    "build": "mkdir -p out; cp resources/*.css out; spec-md content/index.md > out/index.html",
     "serve": "cd out && python -m SimpleHTTPServer",
-    "build-watch": "onchange './content/*.md' -- npm run build"    
+    "build-watch": "onchange './content/*.md' -- npm run build"
   }
 }
