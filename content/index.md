@@ -13,7 +13,7 @@ Meteor入门
 
 # [目录结构](directory.md)
 
-# [包管理I 基本使用](package1.md)
+# [包的基本使用](package1.md)
 
 # [模板](template.md)
 
@@ -25,7 +25,7 @@ Meteor入门
 
 # [样式](style.md)
 
-# [数据建模I](modeling1.md)
+# [数据操作](collections.md)
 
 # [发布订阅](pubsub.md)
 
@@ -37,4 +37,4 @@ Meteor入门
 
 # [Session](session.md)
 
-# [包管理II 创建与发布](package2.md)
+# [包的创建与发布](package2.md)
