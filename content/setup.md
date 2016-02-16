@@ -41,6 +41,10 @@ meteor
 
 等项目启动以后 ，用Chrome访问 http://localhost:3000即可。
 
+## 数据库工具
+
+可以使用robomongo查看MongodB数据库内容。
+
 ## 断点调试
 
 Webstorm和Chrome的整合支持meteor的断点调试。
