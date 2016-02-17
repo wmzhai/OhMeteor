@@ -1,4 +1,4 @@
-Meteor入门讲义
+Meteor讲义
 -------
 
 *草稿版 - [v0.0.1](https://github.com/wmzhai/meteor-intro/blob/master/CHANGELOG.md)*
