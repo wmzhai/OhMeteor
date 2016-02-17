@@ -17,15 +17,13 @@ Meteor入门讲义
 
 # [布局](layout.md)
 
-# [账户系统](accounts1.md)
+# [账户系统](accounts.md)
 
 # [样式](style.md)
 
 # [数据操作](collections.md)
 
 # [发布订阅](pubsub.md)
-
-# [登录重定向](accounts2.md)
 
 # [方法](method.md)
 

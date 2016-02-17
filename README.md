@@ -1,4 +1,4 @@
-# Meteor入门
+# Meteor入门讲义
 
 * 基于Blaze描述
 * 通过迅速上手的例程逐步体验Meteor编程
