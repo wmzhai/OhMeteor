@@ -11,7 +11,9 @@ Meteor讲义
 
 # [包的基本使用](package1.md)
 
-# [模板](template.md)
+# [Blaze模板](Blaze.md)
+
+# [React组件](react.md)
 
 # [路由](routing.md)
 
