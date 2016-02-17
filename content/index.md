@@ -34,3 +34,5 @@ Meteor入门讲义
 # [Session](session.md)
 
 # [包的创建与发布](package2.md)
+
+# [术语表](vocabulary.md)

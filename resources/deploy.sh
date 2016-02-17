@@ -6,7 +6,7 @@ rm -rf out || exit 0;
 mkdir out;
 
 # run our compile script, discussed above
-npm run b
+npm run build
 
 # go to the out directory and create a *new* Git repo
 cd out
