@@ -13,8 +13,6 @@ Meteor讲义
 
 # [Blaze模板](Blaze.md)
 
-# [React组件](react.md)
-
 # [路由](routing.md)
 
 # [布局](layout.md)
@@ -34,5 +32,7 @@ Meteor讲义
 # [Session](session.md)
 
 # [包的创建与发布](package2.md)
+
+# [React组件](react.md)
 
 # [术语表](vocabulary.md)
