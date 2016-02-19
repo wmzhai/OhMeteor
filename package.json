@@ -1,7 +1,7 @@
 {
-  "name": "meteor-intro",
+  "name": "meteor-notes",
   "version": "0.0.1",
-  "description": "Meteor Introduction",
+  "description": "Meteo笔记",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -9,7 +9,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "http://github.com/wmzhai/meteor-intro.git"
+    "url": "http://github.com/wmzhai/meteor-notes.git"
   },
   "scripts": {
     "build": "mkdir -p out; cp resources/*.css out; spec-md content/index.md > out/index.html",

@@ -1,7 +1,7 @@
 Meteor讲义
 -------
 
-*草稿版 - [v0.0.1](https://github.com/wmzhai/meteor-intro/blob/master/CHANGELOG.md)*
+*草稿版 - [v0.0.2](https://github.com/wmzhai/meteor-intro/blob/master/CHANGELOG.md)*
 
 # [概述](overview.md)
 
