@@ -23,8 +23,4 @@ Meteor讲义
 
 # [方法](method.md)
 
-# [响应变量](reactive-var.md)
-
-# [会话](session.md)
-
 # [术语表](vocabulary.md)

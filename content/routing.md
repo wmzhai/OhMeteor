@@ -20,3 +20,41 @@ FlowRouter.route('/lists/:_id', {
 ```
 
 和常规的服务器端路由不同的是，这里路由切换时，并不需要对服务器做任何额外的请求。
+
+## 路由参数
+
+首先看下面这个路由，有一段内容具备一个`:`前缀，它是路由参数(url parameter)，而URL里面也可以通过`?`符号，引入查询字符串(query string)，提供这些查询字符串，路由会分割成一系列命名的参数，叫做`queryParams`。
+
+```js
+'/lists/:_id'
+```
+
+## 获取路由信息
+
+FlowRouter有一些可以获得路由信息的API，比如
+
+* `FlowRouter.getRouteName()` 获得路由的名称
+* `FlowRouter.getParam(paramName)` 获得单个路由参数的值
+* `FlowRouter.getQueryParam(paramName)` 获得单个查询参数的值
+
+## BlazeLayout布局
+
+使用FlowRouter时可以很方便的用 `kadira:blaze-layout` 来做渲染。首先需要定义一个“layout”组件，然后使用`Template.dynamic`来进行组合渲染，具体实例如下
+
+
+```html
+<template name="App_body">
+  ...
+  {{> Template.dynamic template=main}}
+  ...
+</template>
+```
+
+```js
+FlowRouter.route('/lists/:_id', {
+  name: 'Lists.show',
+  action() {
+    BlazeLayout.render('App_body', {main: 'Lists_show_page'});
+  }
+});
+```
