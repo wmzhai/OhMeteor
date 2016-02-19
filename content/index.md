@@ -9,17 +9,13 @@ Meteor讲义
 
 # [目录结构](directory.md)
 
-# [包的基本使用](package1.md)
+# [包](package.md)
 
 # [Blaze模板](Blaze.md)
 
 # [路由](routing.md)
 
-# [布局](layout.md)
-
 # [账户系统](accounts.md)
-
-# [样式](style.md)
 
 # [数据操作](collections.md)
 
@@ -29,10 +25,6 @@ Meteor讲义
 
 # [响应变量](reactive-var.md)
 
-# [Session](session.md)
-
-# [包的创建与发布](package2.md)
-
-# [React组件](react.md)
+# [会话](session.md)
 
 # [术语表](vocabulary.md)
