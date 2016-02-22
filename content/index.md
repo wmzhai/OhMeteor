@@ -19,7 +19,7 @@ Meteor讲义
 
 # [数据操作](collections.md)
 
-# [发布订阅](pubsub.md)
+# [数据加载](data-loading.md)
 
 # [方法](method.md)
 

@@ -1,4 +1,4 @@
-# 发布订阅
+# 数据加载
 
 在传统的Web应用里，客户端和服务端是通过‘request-response’方式进行通信的。 客户端一般是通过RESTful的HTTP请求服务器，并获得HTML或者JSON格式数据的反馈。而Meteor基于则DDP协议建立，允许数据做双向的通信，建立一个Meteor应用并不需要构建REST接口，而是创建一个人publication，然后就可以将数据从服务器端推送到客户端了。
 
@@ -107,6 +107,7 @@ Template.Lists_show_page.onCreated(function() {
 1. 还有一个其他的订阅，也订阅了同样的数据集，结果在本地会放置在同一个本地数据库里，查询条件以及对应的数据可能不一样。
 2. 当订阅发生变化的时候，有一个数据加载的阶段，数据是发生变化的。
 
+
 **在订阅数据附近获取他**
 
 这样有利于从代码的角度理解数据的来源。另外，一个比较常见的编程模式是在父组件里面获取数据，然后再传递给他的纯子组件。
@@ -114,3 +115,88 @@ Template.Lists_show_page.onCreated(function() {
 ### 全局订阅
 
 有些数据是你在任何场合都需要使用的，这种数据可能适合全局订阅。但是即使是这种情况，也可以构造一个布局组件，然后在这个组件里面进行订阅。
+
+## 数据加载模式
+
+### 订阅完成
+
+订阅不会离开获得所需要的数据，从开始订阅到数据抵达客户端会有一个延时。在实际的生产环境中，这个延时往往比开发时大很多。为了确保更好的用户体验，你需要知道数据什么时候加载完成。
+
+为了达到这个目的，`Meteor.subscribe()` 和 Blaze中的`this.subscribe()` 会返回一个订阅句柄，其中包含一个reactive数据，叫做`.ready()`，可以通过这个信息来控制什么时候给用户显示内容，什么时候给用户显示加载页面。
+
+```js
+const handle = Meteor.subscribe('Lists.public');
+Tracker.autorun(() => {
+  const isReady = handle.ready();
+  console.log(`Handle is ${isReady ? 'ready' : 'not ready'}`);  
+});
+```
+
+### 动态改变订阅参数
+
+使用Reactive参数订阅时，当订阅参数发生变化，会重新发生订阅，如下
+
+```js
+Template.Lists_show_page.onCreated(function() {
+  this.getListId = () => FlowRouter.getParam('_id');
+
+  this.autorun(() => {
+    this.subscribe('Todos.inList', this.getListId());
+  });
+});
+```
+
+这个例子中，只要`this.getListId()`的结果发生变化，`autorun`就会重新运行。
+
+### 瀑布流加载
+
+Meteor里一般使用瀑布流代替传统的分页加载。在无限瀑布流的里，首先需要给出排序参数和可以最大支持的数量。
+
+```js
+const MAX_TODOS = 1000;
+
+Meteor.publish('Todos.inList', function(listId, limit) {
+  new SimpleSchema({
+    listId: { type: String },
+    limit: { type: Number }
+  }).validate({ listId, limit });
+
+  const options = {
+    sort: {createdAt: -1},
+    limit: Math.min(limit, MAX_TODOS)
+  };
+
+  // ...
+});
+```
+
+然后在客户端，需要设置某种状态变量（比如下面代码中的`requestedTodos`）来控制需要加载多少数据，当用户需要加载更多数据的时候，修改这个数据的值就可以了。
+
+```js
+Template.Lists_show_page.onCreated(function() {
+  this.getListId = () => FlowRouter.getParam('_id');
+
+  this.autorun(() => {
+    this.subscribe('Todos.inList',
+      this.getListId(), this.state.get('requestedTodos'));
+  });
+});
+```
+
+这里，可以加载的数据总量也是非常重要的，可以通过 [`tmeasday:publish-counts`](https://atmospherejs.com/tmeasday/publish-counts) 这个包来发布这项数据。
+
+```js
+Meteor.publish('Lists.todoCount', function({ listId }) {
+  new SimpleSchema({
+    listId: {type: String}
+  }).validate({ listId });
+
+  Counts.publish(this, `Lists.todoCount.${listId}`, Todos.find({listId}));
+});
+```
+
+在客户端订阅以后，可以通过如下方式获得数据
+
+```js
+Counts.get(`Lists.todoCount.${listId}`)
+```
