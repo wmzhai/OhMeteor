@@ -232,4 +232,70 @@ $window.on('resize', () => {
 });
 ```
 
-如果在复杂一些，需要本地的查询或者关联功能，则可以使用本地数据集。
+如果再复杂一些，需要本地的查询或者关联功能，则可以使用本地数据集。
+
+
+
+## 发布关联数据
+
+常常需要在一处发布多个具有关联关系的数据集的数据，比如我们在发布一个todo list的同时，也需要发布跟他关联的todo项。
+
+下面代码看起来似乎能够达到目的，它一次性的返回了多个游标。
+
+```js
+Meteor.publish('Todos.inList', function(listId) {
+  new SimpleSchema({
+    listId: {type: String}
+  }).validate({ listId });
+
+  const list = List.findOne(listId);
+
+  if (list && (!list.userId || list.userId === this.userId)) {
+    return [
+      Lists.find(listId),
+      Todos.find({listId})
+    ];
+  } else {
+    return this.ready();
+  }
+});
+```
+
+但是这样的代码会有一些问题，因为reactivity在服务端和客户端是不一样的。 在客户端，只要reactive函数里面的任何数据发生变化，整个函数都是重新运行。而在服务端，reactivity将取决于从发布函数返回的游标的行为，在上面的例子里，如果一个人订阅其他人的list被变成私有的，这样就满足不了条件了，但是发布函数并不会重新运行，从而数据集不会方式变化。
+
+但是，我们可以用[`reywood:publish-composite`](https://atmospherejs.com/reywood/publish-composite)包来编写有效跨数据集的reactive订阅。这里可以首先创建一个指向第一个数据集的游标，然后基于第一个游标的结果建立第二个游标。 当数据源变化时，这个包会触发重新运行的动作。
+
+```js
+Meteor.publishComposite('Todos.inList', function(listId) {
+  new SimpleSchema({
+    listId: {type: String}
+  }).validate({ listId });
+
+  const userId = this.userId;
+
+  return {
+    find() {
+      const query = {
+        _id: listId,
+        $or: [{userId: {$exists: false}}, {userId}]
+      };
+
+      // We only need the _id field in this query, since it's only
+      // used to drive the child queries to get the todos
+      const options = {
+        fields: { _id: 1 }
+      };
+
+      return Lists.find(query, options);
+    },
+
+    children: [{
+      find(list) {
+        return Todos.find({ listId: list._id }, { fields: Todos.publicFields });
+      }
+    }]
+  };
+});
+```
+
+In this example, we write a complicated query to make sure that we only ever find a list if we are allowed to see it, then, once per list we find (which can be one or zero times depending on access), we publish the todos for that list. Publish Composite takes care of stopping and starting the dependent cursors if the list stops matching the original query or otherwise.
