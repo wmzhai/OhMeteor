@@ -200,3 +200,36 @@ Meteor.publish('Lists.todoCount', function({ listId }) {
 ```js
 Counts.get(`Lists.todoCount.${listId}`)
 ```
+
+## Reactive客户端数据
+
+在Meteor中，可以通过发布来共享数据和做数据持久化。不过，有些数据不需要多用户共享和持久化，但是需要在客户端共享。 这样的数据是一个科幻的全局单例。在Meteor中，最好将数据变成变成reactive数据，这样很方便和整个生态系统共存。
+
+最简单的，如果数据是一维的，可以使用`ReactiveVar`来保存它，它具备`get()`和`set()`2个属性:
+
+```js
+DocumentHidden = new ReactiveVar(document.hidden);
+$(window).on('visibilitychange', (event) => {
+  DocumentHidden.set(document.hidden);
+});
+```
+
+复杂一些，如果数据是多维的，则可以使用`ReactiveDict`，`ReactiveDict`的优点在于你可以单独访问每个数据(`WindowSize.get('width')`),  然后dict会跟踪每个数据的变化。
+
+```js
+const $window = $(window);
+function getDimensions() {
+  return {
+    width: $window.width(),
+    height: $window.height()
+  };
+};
+
+WindowSize = new ReactiveDict();
+WindowSize.set(getDimensions());
+$window.on('resize', () => {
+  WindowSize.set(getDimensions());
+});
+```
+
+如果在复杂一些，需要本地的查询或者关联功能，则可以使用本地数据集。
