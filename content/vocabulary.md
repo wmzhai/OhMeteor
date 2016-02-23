@@ -1,6 +1,5 @@
 # A. 术语表
 
-
 ** 客户端 Client **
 
 当我们谈论客户端时，我们指的是用户的**网页浏览器**，不论是传统的像 Firebox 或 Safari 的浏览器，或是像在 iPhone 原生应用中的 UIwebView 一样复杂的其他程序。
@@ -8,6 +7,10 @@
 ** 集合 Collection **
 
 Meteor 的集合是自动在客户与服务器之间同步的数据源。集合的名称（比如 `posts`）通常存在于客户端和服务器端。虽然它们表现不同，但是它们有共同的基于 Mongo 的 API。
+
+** 组件 Component **
+
+Meteor支持3个界面库Blaze，React和Angular，其用来构建的可复用界面元素称为“组件(Component)”。
 
 ** Computation **
 
