@@ -187,3 +187,115 @@ Todos.methods.updateText = new ValidatedMethod({
   }
 });
 ```
+
+## 错误处理
+
+正常JavaScript函数里的错误会抛出一个Error对象，在Meteor Method里面也类似，不同的是这个error对象会通过websocket返回到client端。
+
+### 抛出错误
+
+Meteor引入了2种错误：Meteor.Error和ValidationError，这些Error和普通的JavaScript Error会在不同的条件下使用：
+
+**一般错误**
+
+如果错误仅是服务器内部的，不需要返回给客户端时，抛出一个普通的JavaScript错误对象即可。 这种情况下客户端会获得一个没有任何细节的不透明的服务端错误。
+
+**Meteor.Error**
+
+当服务器无法完成客户端的请求，在需要抛出一个带描述的`Meteor.Error`对象给客户端，它具备3个参数：error，reason和details。
+1. **error** 是一个简短唯一的机器可读客户端课理解的错误编码字符串。最好将Method名称设置成前缀。
+2. **reason** 一个简短的针对开发者的描述。需要具备足够的能够debug这个错误的信息。这个信息不应该直接打印到客户端。
+3. **detail** 是可选的， 提供一些额外的信息帮助客户端理解错误内容。 一般，这个信息可以和error信息组合起来打印出有用的报错信息给终端用户。
+
+**ValidationError**
+
+当参数验证错误时，会抛出一个ValidationError。如果使用了`mdg:validated-method`的`aldeed:simple-schema`组合，这个错误是会自动抛出的。
+具体内容可以参考`mdg:validation-error`的[文档](https://atmospherejs.com/mdg/validation-error)。
+
+### 处理错误
+
+调用Method的时候，任何它抛出的错误都会在回调函数里返回，这时需要判断是哪种异常，并显示给用户合适的信息。
+
+```js
+Todos.methods.updateText.call({
+  todoId: '12345',
+  newText: 'This is a todo item.'
+}, (err, res) => {
+  if (err) {
+    if (err.error === 'Todos.methods.updateText.unauthorized') {
+      // Displaying an alert is probably not what you would do in
+      // a real app; you should have some nice UI to display this
+      // error, and probably use an i18n library to generate the
+      // message from the error code.
+      alert('You aren\'t allowed to edit this todo item');
+    } else {
+      // Unexpected error, handle it in the UI somehow
+    }
+  } else {
+    // success!
+  }
+});
+```
+
+## Method加载数据
+
+因为Method可以被用作通用的RPC，所以它也可以代替发布来获取数据，他们各自有自己的优缺点。
+
+Method可以用来获取可能是经过复杂计算的不跟随服务器数据变化的数据。不过这种方法的缺点在于，这种数据不会被自动放到minimongo里面，这样则需要手工管理这些数据。可以使用本地数据集来管理和显示从Method中而不是通过发布订阅获取的数据。
+
+首先，需要创建一个本地数据集(local collection)，这样的数据集仅存在于客户端而不是服务端。
+
+```js
+// In client-side code, declare a local collection
+// by passing `null` as the argument
+ScoreAverages = new Mongo.Collection(null);
+```
+
+然后，如果使用Method获取数据，则可以放到这个数据集里
+
+```js
+function updateAverages() {
+  // Clean out result cache
+  ScoreAverages.remove({});
+
+  // Call a Method that does an expensive computation
+  Games.methods.calculateAverages.call((err, res) => {
+    res.forEach((item) => {
+      ScoreAverages.insert(item);
+    });
+  });
+}
+```
+
+然后就可以在UI组件里面和访问普通MongoDB数据集一样访问了。 这样的数据不会自动更新，每当我们需要新数据时，必须手工调用updateAverages。
+
+
+## 调用Method的生命周期
+
+1. 客户端模拟运行Method
+2. 发送一个method DDP消息到服务器
+3. 服务端运行Method
+4. 返回值发送给客户端
+5. 任何被Method影响的DDP发布都会更新
+6. updated消息发给客户端，采用服务端结果更新数据，回调执行
+
+## Method对比REST
+
+* Method使用同步调用，但是并没有阻塞
+* Method总是按照顺序运行
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-
