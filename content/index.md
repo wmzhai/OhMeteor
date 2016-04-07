@@ -9,6 +9,8 @@ Meteor讲义
 
 # [目录结构](directory.md)
 
+# [代码规范](code-style.md)
+
 # [包](package.md)
 
 # [Blaze模板](Blaze.md)
