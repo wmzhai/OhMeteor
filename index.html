@@ -1,0 +1,517 @@
+<!DOCTYPE html><html><!-- Built with spec-md --><head><meta charset="utf-8"><title>Meteor讲义</title><link href="spec.css" rel="stylesheet"><link href="highlight.css" rel="stylesheet"></head><body><header><h1>Meteor讲义</h1><section id="intro"><p><em>草稿版 - <a href="https://github.com/wmzhai/meteor-intro/blob/master/CHANGELOG.md">v0.0.3</a></em></p></section><div class="spec-toc"><ol><li><a href="#sec-undefined.-"><span class="spec-secid">1</span>概述</a><ol><li><a href="#sec-undefined.-.Meteor-"><span class="spec-secid">1.1</span>Meteor是什么</a></li><li><a href="#sec-undefined.-.-Meteor"><span class="spec-secid">1.2</span>为什么用Meteor</a></li></ol></li><li><a href="#sec-undefined.-"><span class="spec-secid">2</span>开发环境</a><ol><li><a href="#sec-undefined.-.-"><span class="spec-secid">2.1</span>前提</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">2.2</span>操作系统</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">2.3</span>集成开发环境</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">2.4</span>浏览器</a></li><li><a href="#sec-undefined.-.-Meteor"><span class="spec-secid">2.5</span>安装Meteor</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">2.6</span>数据库工具</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">2.7</span>断点调试</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">2.8</span>简单部署</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">2.9</span>版本管理</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">2.10</span>练习</a></li></ol></li><li><a href="#sec-undefined.-"><span class="spec-secid">3</span>目录结构</a><ol><li><a href="#sec-undefined.-.-"><span class="spec-secid">3.1</span>特殊目录</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">3.2</span>加载顺序</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">3.3</span>练习</a></li></ol></li><li><a href="#sec-undefined.-"><span class="spec-secid">4</span>代码规范</a><ol><li><a href="#sec-undefined.-.-"><span class="spec-secid">4.1</span>为什么要规范代码</a><ol><li><a href="#sec-undefined.-.-.-"><span class="spec-secid">4.1.1</span>容易阅读代码</a></li><li><a href="#sec-undefined.-.-.-"><span class="spec-secid">4.1.2</span>自动错误检查</a></li><li><a href="#sec-undefined.-.-.-"><span class="spec-secid">4.1.3</span>更深入的理解</a></li></ol></li><li><a href="#sec-JavaScript-"><span class="spec-secid">4.2</span>JavaScript规范指南</a><ol><li><a href="#sec--ecmascript-"><span class="spec-secid">4.2.1</span>使用`ecmascript`包</a></li><li><a href="#sec--JavaScript-"><span class="spec-secid">4.2.2</span>遵循一个JavaScript规范指南</a></li></ol></li><li><a href="#sec--ESLint-"><span class="spec-secid">4.3</span>使用ESLint检查代码</a><ol><li><a href="#sec--ESLint"><span class="spec-secid">4.3.1</span>安装运行ESLint</a></li><li><a href="#sec-WebStorm-"><span class="spec-secid">4.3.2</span>WebStorm集成</a></li></ol></li><li><a href="#sec-undefined.-.Meteor-"><span class="spec-secid">4.4</span>Meteor代码规范</a><ol><li><a href="#sec-undefined.-.Meteor-.-"><span class="spec-secid">4.4.1</span>集合</a></li><li><a href="#sec-undefined.-.Meteor-.-"><span class="spec-secid">4.4.2</span>方法和发布</a></li><li><a href="#sec-undefined.-.Meteor-.-"><span class="spec-secid">4.4.3</span>文件，导出和包</a></li></ol></li></ol></li><li><a href="#sec-undefined.-"><span class="spec-secid">5</span>包的基本使用</a><ol><li><a href="#sec-undefined.-.-"><span class="spec-secid">5.1</span>包的添加与删除</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">5.2</span>包的查找</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">5.3</span>创建一个包</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">5.4</span>私有包管理</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">5.5</span>包的发布</a></li></ol></li><li><a href="#sec-undefined.-"><span class="spec-secid">6</span>路由</a><ol><li><a href="#sec--FlowRouter"><span class="spec-secid">6.1</span>使用FlowRouter</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">6.2</span>路由参数</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">6.3</span>获取路由信息</a></li><li><a href="#sec-BlazeLayout-"><span class="spec-secid">6.4</span>BlazeLayout布局</a></li></ol></li><li><a href="#sec-undefined.-"><span class="spec-secid">7</span>账户系统</a><ol><li><a href="#sec-undefined.-.-"><span class="spec-secid">7.1</span>核心库</a><ol><li><a href="#sec-accounts-base"><span class="spec-secid">7.1.1</span>accounts-base</a></li><li><a href="#sec-userId"><span class="spec-secid">7.1.2</span>userId</a></li></ol></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">7.2</span>基本使用</a></li><li><a href="#sec--useraccounts"><span class="spec-secid">7.3</span>使用useraccounts</a><ol><li><a href="#sec--useraccounts.-"><span class="spec-secid">7.3.1</span>直接使用</a></li><li><a href="#sec--useraccounts.-"><span class="spec-secid">7.3.2</span>定制模板</a></li><li><a href="#sec--useraccounts.-"><span class="spec-secid">7.3.3</span>定制路由</a></li></ol></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">7.4</span>加载和显示用户</a><ol><li><a href="#sec-undefined.-.-.-"><span class="spec-secid">7.4.1</span>当前登录用户</a></li><li><a href="#sec--Meteor-users-"><span class="spec-secid">7.4.2</span>`Meteor.users`集合</a></li></ol></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">7.5</span>自定义用户数据</a><ol><li><a href="#sec-undefined.-.-.-user-"><span class="spec-secid">7.5.1</span>把数据添加在`user`的顶级字段里</a></li><li><a href="#sec-undefined.-.-.-"><span class="spec-secid">7.5.2</span>用户注册时添加字段</a></li><li><a href="#sec--profile"><span class="spec-secid">7.5.3</span>不要使用profile</a></li><li><a href="#sec-undefined.-.-.-user-"><span class="spec-secid">7.5.4</span>拒绝客户端修改user数据</a></li><li><a href="#sec-undefined.-.-.-"><span class="spec-secid">7.5.5</span>发布自定义数据</a></li></ol></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">7.6</span>权限</a><ol><li><a href="#sec-undefined.-.-.-"><span class="spec-secid">7.6.1</span>基于角色的权限</a></li><li><a href="#sec-undefined.-.-.-"><span class="spec-secid">7.6.2</span>基于文档的权限</a></li></ol></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">7.7</span>练习</a></li></ol></li><li><a href="#sec-undefined.-"><span class="spec-secid">8</span>数据建模</a><ol><li><a href="#sec-MongoDB-"><span class="spec-secid">8.1</span>MongoDB数据集</a><ol><li><a href="#sec-MongoDB-.-"><span class="spec-secid">8.1.1</span>服务端数据集</a></li><li><a href="#sec-MongoDB-.-"><span class="spec-secid">8.1.2</span>客户端数据集</a></li><li><a href="#sec-MongoDB-.-"><span class="spec-secid">8.1.3</span>本地数据集</a></li></ol></li><li><a href="#sec--Schema"><span class="spec-secid">8.2</span>定义Schema</a></li></ol></li><li><a href="#sec-undefined.-"><span class="spec-secid">9</span>数据加载</a><ol><li><a href="#sec-undefined.-.-"><span class="spec-secid">9.1</span>定义发布</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">9.2</span>发布的参数</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">9.3</span>订阅数据</a><ol><li><a href="#sec-undefined.-.-.-"><span class="spec-secid">9.3.1</span>停止订阅</a></li><li><a href="#sec-undefined.-.-.-"><span class="spec-secid">9.3.2</span>在哪写订阅</a></li><li><a href="#sec-undefined.-.-.-"><span class="spec-secid">9.3.3</span>获取数据</a></li><li><a href="#sec-undefined.-.-.-"><span class="spec-secid">9.3.4</span>全局订阅</a></li></ol></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">9.4</span>数据加载模式</a><ol><li><a href="#sec-undefined.-.-.-"><span class="spec-secid">9.4.1</span>订阅完成</a></li><li><a href="#sec-undefined.-.-.-"><span class="spec-secid">9.4.2</span>动态改变订阅参数</a></li><li><a href="#sec-undefined.-.-.-"><span class="spec-secid">9.4.3</span>瀑布流加载</a></li></ol></li><li><a href="#sec-Reactive-"><span class="spec-secid">9.5</span>Reactive客户端数据</a></li><li><a href="#sec-undefined.-.-"><span class="spec-secid">9.6</span>发布关联数据</a></li></ol></li><li><a href="#sec-Method"><span class="spec-secid">10</span>Method</a><ol><li><a href="#sec-Method.-Method"><span class="spec-secid">10.1</span>什么是Method</a></li><li><a href="#sec-Method.-Method"><span class="spec-secid">10.2</span>定义和调用Method</a><ol><li><a href="#sec-Method.-Method.-Method"><span class="spec-secid">10.2.1</span>基本Method</a></li><li><a href="#sec-Method.-Method.-Method"><span class="spec-secid">10.2.2</span>高级Method</a></li><li><a href="#sec--mdg-validated-method-Method"><span class="spec-secid">10.2.3</span>使用mdg:validated-method实现高级Method</a></li></ol></li><li><a href="#sec-Method.-"><span class="spec-secid">10.3</span>错误处理</a><ol><li><a href="#sec-Method.-.-"><span class="spec-secid">10.3.1</span>抛出错误</a></li><li><a href="#sec-Method.-.-"><span class="spec-secid">10.3.2</span>处理错误</a></li></ol></li><li><a href="#sec-Method-"><span class="spec-secid">10.4</span>Method加载数据</a></li><li><a href="#sec--Method-"><span class="spec-secid">10.5</span>调用Method的生命周期</a></li><li><a href="#sec-Method-REST"><span class="spec-secid">10.6</span>Method对比REST</a></li></ol></li><li><a href="#sec-undefined.-"><span class="spec-secid">A</span>术语表</a></li></ol></div></header><section id="sec-undefined.-"><h2><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-">1</a></span>概述</h2><section id="sec-undefined.-.Meteor-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.Meteor-">1.1</a></span>Meteor是什么</h3><p>Meteor是一个建立在Node.js基础上划时代的全栈式JavaScript开发框架，用以开发实时web程序和移动App。目前该框架在<a href="https://github.com/showcases/web-application-frameworks">Github</a>的Web框架里排名第一。</p><p>Meteor主要有如下几个特点</p><ul><li><strong>一种语言</strong> 只需要JavaScript这一种语言，就可以完成server端，web端以及app端的开发。</li><li><strong>数据在线</strong> 服务器向客户端发送数据而不是HTML，客户端否则基于数据渲染。</li><li><strong>拥抱社区</strong> 拥抱社区，把JavaScript社区最好的内容认真地整合到系统里面。</li><li><strong>全栈响应</strong> 界面在最小开发代价的基础上无缝响应状态的变化。</li></ul></section><section id="sec-undefined.-.-Meteor"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-Meteor">1.2</a></span>为什么用Meteor</h3><ul><li>易学易用</li><li>开发快速</li><li>全栈开发</li><li>代码量少</li><li>延时补偿</li><li>水平分工 </li></ul></section></section><section id="sec-undefined.-"><h2><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-">2</a></span>开发环境</h2><p>本章介绍基本的开发环境设置。</p><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">2.1</a></span>前提</h3><ul><li><strong>会翻墙</strong> 首先要会翻墙，推荐shadowsocks和proxychains4，后者主要是解决命令行翻墙的。</li><li><strong>会英语</strong> 最新的技术文档以及技术社区的通用文字都是英文，需要能够熟练阅读英文技术资料。</li><li><strong>会搜索</strong> 尽量用Google，别用百度。</li></ul></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">2.2</a></span>操作系统</h3><ul><li><strong>MacOS</strong> 首推MacOS作为Meteor开发的操作系统，各种资源都比较全，命令行支持也和linux系统一样好，而且这也是唯一支持iOS开发的操作系统。</li><li><strong>Ubuntu</strong> 如果没有MacOS，可以使用Ubuntu LTS来进行开发，具体的设置过程可以参考<a href="https://github.com/wmzhai/setup-meteor-machine/blob/master/README.md">Meteor环境安装指南</a>。</li><li><strong>Windows</strong> 虽然Meteor号称支持Windows开发，但是一定不要去做尝试，特别是新手，你会遇到很多问题，而且很少有人愿意去帮你解决。如果你只有Windows电脑，那么就用Ubuntu的虚拟机吧。</li></ul></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">2.3</a></span>集成开发环境</h3><ul><li><strong>Webstorm</strong> 推荐使用Webstorm作为Meteor的开发环境，比较傻瓜，不用任何配置就有了丰富的面向Meteor开发的功能，包括调试、git和Emmet等。</li><li><strong>其他</strong> 对Sublime和Atom比较熟悉的可以采用这些编辑器，不过很多功能需要自己安装插件，相对而言Atom的未来可能会更加好一些。</li></ul></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">2.4</a></span>浏览器</h3><p>Chrome是唯一的选择，不管是Mac还是Ubuntu。</p></section><section id="sec-undefined.-.-Meteor"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-Meteor">2.5</a></span>安装Meteor</h3><p>Meteor的安装比较简单，只需要一条指令</p><pre><code>curl https://install.meteor.com/ | sh
+</code></pre><p>安装完成以后，尝试创建一个例子并运行</p><pre><code>meteor create hello
+cd hello
+meteor
+</code></pre><p>等项目启动以后 ，用Chrome访问 http://localhost:3000即可。</p></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">2.6</a></span>数据库工具</h3><p>可以使用robomongo查看MongodB数据库内容。</p></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">2.7</a></span>断点调试</h3><p>Webstorm和Chrome的整合支持meteor的断点调试。</p></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">2.8</a></span>简单部署</h3><p>对于一个Meteor项目，在项目路径下执行</p><pre><code>meteor deploy my_app_name.meteor.com
+</code></pre><p>就会在meteor的服务器上做一个简单的部署，可以用如下网址访问： http://my_app_name.meteor.com</p></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">2.9</a></span>版本管理</h3><p>推荐用git作为版本管理工具，共有项目可以托管在<a href="https://github.com">Github</a>上。私有项目，可以购买Github的私仓。如果将项目托管在自己的服务器上，可以安装<a href="https://about.gitlab.com/downloads/">Gitlab</a>。</p></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">2.10</a></span>练习</h3><p>安装好上述开发环境，然后按照<a href="https://www.meteor.com/tutorials/blaze/creating-an-app">入门教程</a>操作一遍。 </p></section></section><section id="sec-undefined.-"><h2><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-">3</a></span>目录结构</h2><p>目前Meteor并没有对项目整体的目录结构做出类似Rails那样严格的要求和限制，不过不同的目录有着不同的含义。</p><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">3.1</a></span>特殊目录</h3><p>一般的文件都会在client与server端同时加载，不过下面这些目录都有着特殊的含义。</p><ul><li><strong>client</strong> 任何在client目录下的文件仅在client端加载。</li><li><strong>server</strong> 任何在server目录下的文件仅在server端加载。</li><li><strong>public</strong> 所有public下的文件可以在client访问，访问这些文件时将public目录是为根目录。比如访问<code>public/bg.png</code>的url是<code>/bg.png</code>。</li><li><strong>private</strong> 仅server端可访问，通过Assets的API访问。</li><li><strong>tests</strong> 这个目录并不在任何地方加载，它只用于测试代码。</li><li><strong>node_modules</strong> 这个目录下放置nodejs的包，它并不被meteor直接加载，需要通过特定方式使用。</li><li><strong>packages</strong> 本地的包，不直接加载。</li><li><strong>.</strong> 以.开头的目录或文件，不加载，比如.meteor和.git。</li></ul></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">3.2</a></span>加载顺序</h3><p>有一些加载顺序相关的规则，他们按照如下优先级应用到加载顺序中:</p><ol><li>HTML模板文件总是最先加载</li><li>以main.开头的文件最后加载</li><li>接着加载lib目录下的文件</li><li>深层次目录的文件先加载</li><li>剩下的文件按照字母顺序加载</li></ol></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">3.3</a></span>练习</h3><ul><li>创建一个示例项目</li></ul><pre><code>meteor create --example todos
+</code></pre><p>然后分别分析client和server端文件的内容和加载顺序。 </p></section></section><section id="sec-undefined.-"><h2><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-">4</a></span>代码规范</h2><p>读完本章后，您将了解</p><ol><li>为什么需要一致的代码规范</li><li>我们针对JavaScript代码的规范是什么</li><li>如何设置ESLint进行代码自动检测</li><li>Meteor相关的代码规范及模式</li></ol><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">4.1</a></span>为什么要规范代码</h3><p>程序员在代码规范上的争论花费了很多时间，具体例如使用单引号还是双引号，以及大括号的放置位置，以及缩进的空格数等。而这些问题跟代码的质量是有着密切的关系的，在一个组织内统一代码规范是有着巨大的好处的。</p><section id="sec-undefined.-.-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-.-">4.1.1</a></span>容易阅读代码</h4><p>一般情况下并不是逐个单词地阅读代码，大多数情况下，只需要看一下代码的形状以及高亮，就大致了解代码的功能了。如果代码的风格是一致的，读起来就会容易很多。</p><pre><code><span class="hljs-comment">// 这个代码有很大的误导性，因为两个语句看起来像是在一个条件里面</span>
+<span class="hljs-keyword">if</span> (condition)
+  firstStatement();
+  secondStatement();
+</code></pre><pre><code><span class="hljs-comment">// 这个就比较清楚了</span>
+<span class="hljs-keyword">if</span> (condition) {
+  firstStatement();
+}
+
+secondStatement();
+</code></pre></section><section id="sec-undefined.-.-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-.-">4.1.2</a></span>自动错误检查</h4><p>风格统一的代码更加容易用工具进行错误检查。</p></section><section id="sec-undefined.-.-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-.-">4.1.3</a></span>更深入的理解</h4><p>一般很难一次学习一种编程语言的所有内容，使用社区推荐的代码规范，能够促使比较高效地避免陷阱。也意味着，你不需要学习所有的语法细节，就可以直接开始工作了，随着时间的退役可以进一步深入的了解。</p></section></section><section id="sec-JavaScript-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-JavaScript-">4.2</a></span>JavaScript规范指南</h3><p>在Meteor社区里，我们坚信JavaScript是构建web应用最佳的语言。 而JavaScript本身也在不断的改进，ES6标准统一了JavaScript社区，下面是我们关于如何在你的应用里使用ES6的建议。</p><section id="sec--ecmascript-"><h4><span class="spec-secid" title="link to this section"><a href="#sec--ecmascript-">4.2.1</a></span>使用`ecmascript`包</h4><p>ECMAScript作为跨浏览器的JavaScript标准，已经达到了每年更新一次的程度，最新的标准是ES6，这个标准对语言做出了很大的改进。Meteor的<code>ecmascript</code>包通过babel将ES6代码解释成所有浏览器都懂的传统JavaScript。 因为它与传统的JavaScript完全兼容，所以即使您不想使用任何新特性时也没有任何问题。另外，我们这个包也支持source map这样高级的功能，所以你可以使用任何传统的开发工具来调试代码，而不必查看编译输出。</p><p>默认情况下，所有新建的Meteor项目都会使用<code>ecmascript</code>包，并自动编译所有具有<code>.js</code>后缀的文件。具体可以参考<a href="https://docs.meteor.com/#/full/supportedES6features">ecmascript包支持的ES6特性列表 </a>。 为了得到完整的支持，您也应该使用<code>es5-shim</code>包，它也是一个默认添加的包。者意味着您可以使用诸如<code>Array#forEach</code>这样的运行时特性而不必考虑浏览器支持性。</p><p>进一步信息可以参考如下文章：</p><ul><li><a href="http://info.meteor.com/blog/ES6-get-started">Getting started with ES6 and Meteor</a></li><li><a href="http://info.meteor.com/blog/set-up-sublime-text-for-meteor-es6-ES6-and-jsx-syntax-and-linting">Set up Sublime Text for ES6</a></li><li><a href="http://info.meteor.com/blog/how-much-does-ES6-cost">How much does ES6 cost?</a></li></ul></section><section id="sec--JavaScript-"><h4><span class="spec-secid" title="link to this section"><a href="#sec--JavaScript-">4.2.2</a></span>遵循一个JavaScript规范指南</h4><p>我们建议选择遵循一个JavaScript规范指南，并使用工具去强制这个指南。一个常见的选项是<a href="https://github.com/airbnb/javascript">Airbnb style guide</a>的基础上对ES6和React的扩展。</p></section></section><section id="sec--ESLint-"><h3><span class="spec-secid" title="link to this section"><a href="#sec--ESLint-">4.3</a></span>使用ESLint检查代码</h3><p>Lint是针对常见错误和样式问题对代码自动检查代码的过程。比如，ESLint可以检查出变量的拼写错误，以及是否有一些无效代码的存在。我们建议使用<a href="https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb">Airbnb eslint configuration</a>来遵循Airbnb的规范。</p><p>下面是在不同开发阶段设置自动Lint的指南，一般来说，需要尽可能多地运行lint，因为他是查找微小错误最快捷方便的手段。</p><section id="sec--ESLint"><h4><span class="spec-secid" title="link to this section"><a href="#sec--ESLint">4.3.1</a></span>安装运行ESLint</h4><p>在应用程序中设置ESLint，可以安装如下npm包：</p><pre><code>npm install --save-dev eslint eslint-plugin-react eslint-plugin-meteor eslint-config-airbnb
+</code></pre><p>您可以在<code>package.json</code>里加入一个<code>eslintConfig</code>小节，以指定采用Airbnb配置，并使用<a href="https://github.com/dferber90/eslint-plugin-meteor">ESLint&#8208;plugin&#8208;Meteor</a>. 您也可以使用任何您需要改变的规则，并加入一个lint的npm指令:</p><pre><code>{
+  ...
+  &quot;scripts&quot;: {
+    &quot;lint&quot;: &quot;eslint .&quot;,
+    &quot;pretest&quot;: &quot;npm run lint --silent&quot;
+  },
+  &quot;eslintConfig&quot;: {
+    &quot;plugins&quot;: [
+      &quot;meteor&quot;
+    ],
+    &quot;extends&quot;: [
+      &quot;airbnb/base&quot;,
+      &quot;plugin:meteor/guide&quot;
+    ],
+    &quot;rules&quot;: {}
+  }
+}
+</code></pre><p>使用<code>&quot;airbnb/base&quot;</code>作为基本配置，并在一个React项目里采用<code>&quot;airbnb&quot;</code>，执行lint时只需要执行</p><pre><code>npm run lint
+</code></pre><p>更详细信息可以参考ESLint主页上的<a href="http://eslint.org/docs/user-guide/getting-started">Getting Started</a>。</p></section><section id="sec-WebStorm-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-WebStorm-">4.3.2</a></span>WebStorm集成</h4><p>Lint是最快的发现代码潜在bug的方法，运行linter往往比运行程序和单元测试更快，所以最好是能够随时运行它。在IDE里面设置Lint一开始看起来总是报错，比较扰人，不过长期来看，这个方法有助于你养成良好的代码习惯。在WebStorm中设置ESLint可以参考<a href="https://www.jetbrains.com/webstorm/help/eslint.html">these instructions for using ESLint</a>。 当你安装完ESLint包并设置好<code>package.json</code>以后, 点击Apply以enable ESLint功能。</p></section></section><section id="sec-undefined.-.Meteor-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.Meteor-">4.4</a></span>Meteor代码规范</h3><p>这一节讨论Meteor相关的代码规范，也可以将部分规范应用到其他JavaScript程序里。</p><section id="sec-undefined.-.Meteor-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.Meteor-.-">4.4.1</a></span>集合</h4><p>集合(Collections)应该使用PascalCase的复数名词，而和集合对应的数据库集合名词，应该与它名词完全一致。比如：</p><pre><code><span class="hljs-comment">// Defining a collection</span>
+Lists = <span class="hljs-keyword">new</span> Mongo.Collection(<span class="hljs-string">'Lists'</span>);
+</code></pre><p>数据库里面的字段名称应该采用camelCased，与JavaScript里的变量名一致。</p><pre><code><span class="hljs-comment">// Inserting a document with camelCased field names</span>
+Widgets.insert({
+  myFieldName: <span class="hljs-string">'Hello, world!'</span>,
+  otherFieldName: <span class="hljs-string">'Goodbye.'</span>
+});
+</code></pre></section><section id="sec-undefined.-.Meteor-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.Meteor-.-">4.4.2</a></span>方法和发布</h4><p>方法和发布名称应该是camelCase的，并且用它们的module作为namespace</p><pre><code><span class="hljs-comment">// in imports/api/todos/methods.js</span>
+updateText = <span class="hljs-keyword">new</span> ValidatedMethod({
+  name: <span class="hljs-string">'todos.updateText'</span>,
+  <span class="hljs-comment">// ...</span>
+});
+</code></pre><p>注意上面代码使用<a href="methods.html#validated-method">ValidatedMethod package recommended in the Methods article</a>，如果你不使用那个package，也可以使用传递给<code>Meteor.methods</code>一样的名字。</p><p>下面是命名习惯如何应用到发布上的:</p><pre><code><span class="hljs-comment">// Naming a publication</span>
+Meteor.publish(<span class="hljs-string">'lists.public'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">listsPublic</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// ...</span>
+});
+</code></pre></section><section id="sec-undefined.-.Meteor-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.Meteor-.-">4.4.3</a></span>文件，导出和包</h4><p>应该使用ES6的<code>import</code>和<code>export</code>特性来管理代码，这样能够更深入地了解代码不同部分的依赖。</p><p>代码中每个文件应该代表一个单独的逻辑模块，每个class，UI组件和collection，独立一个文件是一个比较好的习惯，这样能够避免单个模块里面有多个不相关的东西。不过有时也会有一些例外，比如你需要一个不在外部使用的小组件的时候。</p><p>当文件仅有单个类型和UI组件时，文件名应该和它定义的东西一致。比如导出一个class的文件</p><pre><code><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ClickCounter</span> </span>{ ... }
+</code></pre><p>这个类应该在一个叫做<code>click_counter.js</code>的文件里面定义，导入代码如下：</p><pre><code><span class="hljs-keyword">import</span> ClickCounter <span class="hljs-keyword">from</span> <span class="hljs-string">'./click_counter.js'</span>;
+</code></pre><p>注意，导入时使用相对路径的，需要把文件后缀放进去。</p><p>在比较早的版本里， <code>api.export</code>允许导出多个内容，这样很多可以看到一些非默认导出，比如</p><pre><code><span class="hljs-comment">// You'll need to deconstruct here, as Meteor could export more symbols</span>
+<span class="hljs-keyword">import</span> { Meteor } <span class="hljs-keyword">from</span> <span class="hljs-string">'meteor/meteor'</span>;
+
+<span class="hljs-comment">// This will not work</span>
+<span class="hljs-keyword">import</span> Meteor <span class="hljs-keyword">from</span> <span class="hljs-string">'meteor/meteor'</span>;
+</code></pre></section></section></section><section id="sec-undefined.-"><h2><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-">5</a></span>包的基本使用</h2><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">5.1</a></span>包的添加与删除</h3></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">5.2</a></span>包的查找</h3></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">5.3</a></span>创建一个包</h3></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">5.4</a></span>私有包管理</h3></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">5.5</a></span>包的发布</h3></section></section><section id="sec-undefined.-"><h2><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-">6</a></span>路由</h2><p>在web应用里面，是通过路由和URL来驱动UI的切换的。</p><p>在传统web技术栈里，服务器每次渲染一个HTML页面，URL是用户访问应用程序的基本入口。 用户通过URL访问web应用，该请求以HTTP形式传给服务器，然后服务器通过服务端路由加以响应。</p><p>和传统不一样的是，Meteor采用 <strong>data on the wire</strong> 的原则，客户端只采用DDP和服务端通信。正常情况下，当程序启动以后，会初始化一系列的订阅来渲染程序。当用户进行交互时，会加载不同的订阅，但是URL可以一直不变。正常情况下，服务端并不是URL驱动的，URL只用来表示用户当前使用的客户端状态。</p><section id="sec--FlowRouter"><h3><span class="spec-secid" title="link to this section"><a href="#sec--FlowRouter">6.1</a></span>使用FlowRouter</h3><p>可以通过添加kadira:flow&#8208;router来使用FlowRouter。 使用一个路由的基本目的是根据某个URL，执行一个操作，比如</p><pre><code>FlowRouter.route(<span class="hljs-string">'/lists/:_id'</span>, {
+  name: <span class="hljs-string">'Lists.show'</span>,
+  action(params, queryParams) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Looking at a list?"</span>);
+  }
+});
+</code></pre><p>和常规的服务器端路由不同的是，这里路由切换时，并不需要对服务器做任何额外的请求。</p></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">6.2</a></span>路由参数</h3><p>首先看下面这个路由，有一段内容具备一个<code>:</code>前缀，它是路由参数(url parameter)，而URL里面也可以通过<code>?</code>符号，引入查询字符串(query string)，提供这些查询字符串，路由会分割成一系列命名的参数，叫做<code>queryParams</code>。</p><pre><code><span class="hljs-string">'/lists/:_id'</span>
+</code></pre></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">6.3</a></span>获取路由信息</h3><p>FlowRouter有一些可以获得路由信息的API，比如</p><ul><li><code>FlowRouter.getRouteName()</code> 获得路由的名称</li><li><code>FlowRouter.getParam(paramName)</code> 获得单个路由参数的值</li><li><code>FlowRouter.getQueryParam(paramName)</code> 获得单个查询参数的值</li></ul></section><section id="sec-BlazeLayout-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-BlazeLayout-">6.4</a></span>BlazeLayout布局</h3><p>使用FlowRouter时可以很方便的用 <code>kadira:blaze-layout</code> 来做渲染。首先需要定义一个&ldquo;layout&rdquo;组件，然后使用<code>Template.dynamic</code>来进行组合渲染，具体实例如下</p><pre><code><span class="hljs-tag">&lt;<span class="hljs-title">template</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"App_body"</span>&gt;</span>
+  ...
+  {{&gt; Template.dynamic template=main}}
+  ...
+<span class="hljs-tag">&lt;/<span class="hljs-title">template</span>&gt;</span>
+</code></pre><pre><code>FlowRouter.route(<span class="hljs-string">'/lists/:_id'</span>, {
+  name: <span class="hljs-string">'Lists.show'</span>,
+  action() {
+    BlazeLayout.render(<span class="hljs-string">'App_body'</span>, {main: <span class="hljs-string">'Lists_show_page'</span>});
+  }
+});
+</code></pre></section></section><section id="sec-undefined.-"><h2><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-">7</a></span>账户系统</h2><p>Meteor内置了一个可以直接使用的账户系统及其界面，并基于它实现了多个第三方账号的集成。</p><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">7.1</a></span>核心库</h3><section id="sec-accounts-base"><h4><span class="spec-secid" title="link to this section"><a href="#sec-accounts-base">7.1.1</a></span>accounts-base</h4><p>账户系统的核心内容在 <strong>accounts&#8208;base</strong> 包里面实现，它包括</p><ul><li><strong>集合</strong> 一个users数据集及其对应的schema，这个数据集可以通过Meteor.users来访问，而客户端的单例Meteor.userId()和Meteor.user()则可以表示登录状态</li><li><strong>方法</strong> 一系列辅助方法来跟踪登录状态，登录，登出以及数据验证</li><li><strong>接口</strong> 用来注册新的登录的API，方便其他代码包和账号系统整合。</li></ul><p>一般的应用程序通过添加<strong>accounts&#8208;password</strong>、<strong>accounts&#8208;weibo</strong> 等来自动引用<strong>accounts&#8208;base</strong>。</p></section><section id="sec-userId"><h4><span class="spec-secid" title="link to this section"><a href="#sec-userId">7.1.2</a></span>userId</h4><p>用户登录以后可以一直获得 this.userId 这个变量，并通过它来获取登录状态，这个变量在Method，Publication以及client端代码里面都可以调用。</p></section></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">7.2</a></span>基本使用</h3><p>可以通过 <strong>accounts&#8208;ui</strong> 来快速方便地使用账号系统的基本功能，使用方法非常简单：</p><ol><li>添加包 accounts&#8208;ui</li><li>在Blaze模板里面使用 <code>{{&gt; loginButtons}}</code></li><li>选择下面合适的登录方式，它们会自动和accounts&#8208;ui集成<ul><li>accounts&#8208;password</li><li>accounts&#8208;weibo</li><li>accounts&#8208;google</li><li>accounts&#8208;github</li><li>accounts&#8208;twitter</li><li>accounts&#8208;facebook</li><li>accounts&#8208;meetup</li></ul></li></ol></section><section id="sec--useraccounts"><h3><span class="spec-secid" title="link to this section"><a href="#sec--useraccounts">7.3</a></span>使用useraccounts</h3><p>useraccounts提供了一系列功能更加丰富且可配置的功能包，从而方便程序与其他部分做更加自然的整合。这个系列的包是目前Meteor生态圈最强大的账户系统工具包。</p><p>核心包 <strong>useraccounts:core</strong> 是独立于任何模板和路由的，它也内置了几个预置的界面风格，包括 <strong>Bootstrap</strong>、<strong>Semantic UI</strong>、<strong>Material UI</strong> 等 ，如果需要自定义风格，可以使用 <strong>useraccounts:unstyled</strong> 。</p><section id="sec--useraccounts.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec--useraccounts.-">7.3.1</a></span>直接使用</h4><p>如果不想做过多的配置，可以直接在代码里面加入下面的模板，即可达到使用的效果</p><pre><code> {{&gt; atForm}}
+ </code></pre></section><section id="sec--useraccounts.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec--useraccounts.-">7.3.2</a></span>定制模板</h4><p>对某些应用来说，现成的login模板就够用了，但是更多的情况下是需要做一些定制的。可以通过模板替换的方法来完成这个目的，这里会用到 <strong>aldeed:template&#8208;extension</strong> 这个包。</p><p>我们首先找到需要被替换的模板，比如</p><pre><code><span class="hljs-tag">&lt;<span class="hljs-title">template</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"atPwdFormBtn"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"submit"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"at-btn submit {{submitDisabled}}"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"at-btn"</span>&gt;</span>
+    {{buttonText}}
+  <span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">template</span>&gt;</span>
+</code></pre><p>然后定义一个新的模板，比如</p><pre><code><span class="hljs-tag">&lt;<span class="hljs-title">template</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"override-atPwdFormBtn"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"submit"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"btn-primary"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"at-btn"</span>&gt;</span>
+    {{buttonText}}
+  <span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">template</span>&gt;</span>
+</code></pre><p>这里需要注意几点：</p><ol><li>和原来模板做一样的渲染，使用一样的helpers，比如这里的 <code>{buttonText}}</code></li><li>保持所有的id不变， 这些id在事件处理时需要用到，比如这里的 <code>at-btn</code></li></ol><p>最后，通过一行指令替换掉那个模板</p><pre><code>Template[<span class="hljs-string">'override-atPwdFormBtn'</span>].replaces(<span class="hljs-string">'atPwdFormBtn'</span>);
+</code></pre></section><section id="sec--useraccounts.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec--useraccounts.-">7.3.3</a></span>定制路由</h4><p>除了模板以外，路由也可以自定义。</p><p>首先需要配置渲染accounts模板的布局，如下使用 <code>App_body</code> 模板作为所有账户相关页面的布局模板，这个模板有一个叫做 <code>main</code> 的区域。</p><pre><code>AccountsTemplates.configure({
+  defaultTemplate: <span class="hljs-string">'Auth_page'</span>,
+  defaultLayout: <span class="hljs-string">'App_body'</span>,
+  defaultContentRegion: <span class="hljs-string">'main'</span>,
+  defaultLayoutRegions: {}
+});
+</code></pre><p>然后可以配置一些路由</p><pre><code><span class="hljs-comment">// Define these routes in a file loaded on both client and server</span>
+AccountsTemplates.configureRoute(<span class="hljs-string">'signIn'</span>, {
+  name: <span class="hljs-string">'signin'</span>,
+  path: <span class="hljs-string">'/signin'</span>
+});
+
+AccountsTemplates.configureRoute(<span class="hljs-string">'signUp'</span>, {
+  name: <span class="hljs-string">'join'</span>,
+  path: <span class="hljs-string">'/join'</span>
+});
+
+AccountsTemplates.configureRoute(<span class="hljs-string">'forgotPwd'</span>);
+
+AccountsTemplates.configureRoute(<span class="hljs-string">'resetPwd'</span>, {
+  name: <span class="hljs-string">'resetPwd'</span>,
+  path: <span class="hljs-string">'/reset-password'</span>
+});
+</code></pre><p>然后则可以渲染login页面如下</p><pre><code><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"btns-group"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"{{pathFor 'signin'}}"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"btn-secondary"</span>&gt;</span>Sign In<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"{{pathFor 'join'}}"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"btn-secondary"</span>&gt;</span>Join<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre><p>进一步路由使用可以参考<a href="https://github.com/meteor-useraccounts/flow-routing#routes"><code>useraccounts:flow-routing</code></a>的文档，它对blaze和react都有着比较好的支持。</p><p>对于useraccounts的进一步使用可以参考<a href="https://github.com/meteor-useraccounts/core/blob/master/Guide.md">帮助文档</a>。</p></section></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">7.4</a></span>加载和显示用户</h3><section id="sec-undefined.-.-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-.-">7.4.1</a></span>当前登录用户</h4><p><strong>客户端 Meteor.userId()</strong></p><p>一旦用户登录，则可以在客户端获得全局的当前用户信息</p><ul><li><code>Meteor.userId()</code> 可以获得当前用户的id信息</li><li><code>Meteor.user()</code> 等价于 <code>Meteor.users.findOne({Meteor.userId()})</code></li><li><code>{{currentUser}}</code> 在模板里可以通过这个值来获得<code>Meteor.user()</code>对应的值</li></ul><p><strong>服务端this.userId</strong></p><p>服务端并没有全局的登录用户信息，但是Meteor会跟踪每个Meteor call的环境，所以在method里面可以使用 <code>Meteor.userId()</code>, 该函数的返回值取决于谁调用它。不过不可以在publication里面使用<code>Meteor.userId()</code>。</p><p>我们推荐在Method的上下文以及publication里面使用<code>this.userId</code>，并可以使用这个变量作为参数。 总而言之，可以在服务端用<code>this.userId</code>，包括publication里面。</p><p>总体而言，可以参考如下两段代码：</p><pre><code><span class="hljs-comment">// Accessing this.userId inside a publication</span>
+Meteor.publish(<span class="hljs-string">'Lists.private'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.userId) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.ready();
+  }
+
+  <span class="hljs-keyword">return</span> Lists.find({
+    userId: <span class="hljs-keyword">this</span>.userId
+  }, {
+    fields: Lists.publicFields
+  });
+});
+</code></pre><pre><code><span class="hljs-comment">// Accessing this.userId inside a Method</span>
+Meteor.methods({
+  <span class="hljs-string">'Todos.methods.updateText'</span>({ todoId, newText }) {
+    <span class="hljs-keyword">new</span> SimpleSchema({
+      todoId: { type: <span class="hljs-built_in">String</span> },
+      newText: { type: <span class="hljs-built_in">String</span> }
+    }).validate({ todoId, newText }),
+
+    <span class="hljs-keyword">const</span> todo = Todos.findOne(todoId);
+
+    <span class="hljs-keyword">if</span> (!todo.editableBy(<span class="hljs-keyword">this</span>.userId)) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Meteor.Error(<span class="hljs-string">'Todos.methods.updateText.unauthorized'</span>,
+        <span class="hljs-string">'Cannot edit todos in a private list that is not yours'</span>);
+    }
+
+    Todos.update(todoId, {
+      $set: { text: newText }
+    });
+  }
+});
+</code></pre></section><section id="sec--Meteor-users-"><h4><span class="spec-secid" title="link to this section"><a href="#sec--Meteor-users-">7.4.2</a></span>`Meteor.users`集合</h4><p>Meteor自带了保存用户的MongodB数据集<code>users</code>，可以在代码里面通过访问<code>Meteor.users</code>来访问，有几个注意事项：</p><ul><li>在发布user数据时，不要发布key等数据。</li><li>当通过email或者user来查找用户时，不要直接查找数据库，而是通过这两个函数来达到大写不敏感的查询结果：<code>Accounts.findUserByUsername</code>、<code>Accounts.findUserByEmail</code>。</li></ul></section></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">7.5</a></span>自定义用户数据</h3><p>在实际应用中时常需要针对用户自定义一些数据，在关系型数据库里面，往往是通过独立的表来保存这些数据的。不过MongoDB并不善于做级联查询，我们经常把这些数据直接保存在<code>users</code>这个集合中以提高程序的效率。</p><section id="sec-undefined.-.-.-user-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-.-user-">7.5.1</a></span>把数据添加在`user`的顶级字段里</h4><p>添加自定义字段的最优方式是在<code>Meteor.users</code>集合里添加一个全新命名的顶级字段。比如如下服务端代码添加了一个邮寄地址：</p><pre><code><span class="hljs-keyword">const</span> newMailingAddress = {
+  addressCountry: <span class="hljs-string">'US'</span>,
+  addressLocality: <span class="hljs-string">'Seattle'</span>,
+  addressRegion: <span class="hljs-string">'WA'</span>,
+  postalCode: <span class="hljs-string">'98052'</span>,
+  streetAddress: <span class="hljs-string">"20341 Whitworth Institute 405 N. Whitworth"</span>
+};
+
+Meteor.users.update(userId, {
+  $set: {
+    mailingAddress: newMailingAddress
+  }
+});
+</code></pre></section><section id="sec-undefined.-.-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-.-">7.5.2</a></span>用户注册时添加字段</h4><p>有的时候需要在创建用户时初始化某些值，这个工作可以在<code>Accounts.onCreateUser</code>里进行，比如</p><pre><code><span class="hljs-comment">// Generate a todo list for each new user</span>
+Accounts.onCreateUser((options, user) =&gt; {
+  <span class="hljs-comment">// Generate a user ID ourselves</span>
+  user._id = Random.id(); <span class="hljs-comment">// Need to add the `random` package</span>
+
+  <span class="hljs-comment">// Use the user ID we generated</span>
+  Lists.createListForUser(user._id);
+
+  <span class="hljs-comment">// Don't forget to return the new user object at the end!</span>
+  <span class="hljs-keyword">return</span> user;
+});
+</code></pre></section><section id="sec--profile"><h4><span class="spec-secid" title="link to this section"><a href="#sec--profile">7.5.3</a></span>不要使用profile</h4><p>用户注册以后有一个默认的<code>profile</code>字段，因为它字段很容易在客户端写入，所以人们常常喜欢把自定义字段放在这里。但这并不是一个好习惯，有很多安全隐患。</p></section><section id="sec-undefined.-.-.-user-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-.-user-">7.5.4</a></span>拒绝客户端修改user数据</h4><p>出于安全考虑，尽量避免在客户端修改user数据，可以通过如下代码做出强制约束</p><pre><code>Meteor.users.deny({
+  update() { <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; }
+});
+</code></pre></section><section id="sec-undefined.-.-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-.-">7.5.5</a></span>发布自定义数据</h4><p>为了获得自定义数据，需要从服务器端发布它们，但是由于user数据里面保存了一些重要数据，所以需要明确哪些数据被发布了。下面例子，发布了initials数据：</p><pre><code>Meteor.publish(<span class="hljs-string">'Meteor.users.initials'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">{ userIds }</span>) </span>{
+  <span class="hljs-comment">// Validate the arguments to be what we expect</span>
+  <span class="hljs-keyword">new</span> SimpleSchema({
+    userIds: { type: [<span class="hljs-built_in">String</span>] }
+  }).validate({ userIds });
+
+  <span class="hljs-comment">// Select only the users that match the array of IDs passed in</span>
+  <span class="hljs-keyword">const</span> selector = {
+    _id: { $<span class="hljs-keyword">in</span>: userIds }
+  };
+
+  <span class="hljs-comment">// Only return one field, `initials`</span>
+  <span class="hljs-keyword">const</span> options = {
+    fields: { initials: <span class="hljs-number">1</span> }
+  };
+
+  <span class="hljs-keyword">return</span> Meteor.users.find(selector, options);
+});
+</code></pre></section></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">7.6</a></span>权限</h3><p>有2种权限形式</p><ul><li>基于角色的权限</li><li>基于文档的权限</li></ul><section id="sec-undefined.-.-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-.-">7.6.1</a></span>基于角色的权限</h4><p>最常见的角色权限包是<code>alanning:roles</code>， 如下代码给用户赋予了特定的权限</p><pre><code><span class="hljs-comment">// Give Alice the 'admin' role</span>
+Roles.addUsersToRoles(aliceUserId, <span class="hljs-string">'admin'</span>, Roles.GLOBAL_GROUP);
+
+<span class="hljs-comment">// Give Bob the 'moderator' role for a particular category</span>
+Roles.addUsersToRoles(bobsUserId, <span class="hljs-string">'moderator'</span>, categoryId);
+</code></pre><p>如果需要判断用户是否允许删除一个post，则可以通过如下代码验证</p><pre><code><span class="hljs-keyword">const</span> forumPost = Posts.findOne(postId);
+
+<span class="hljs-keyword">const</span> canDelete = Roles.userIsInRole(userId,
+  [<span class="hljs-string">'admin'</span>, <span class="hljs-string">'moderator'</span>], forumPost.categoryId);
+
+<span class="hljs-keyword">if</span> (! canDelete) {
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Meteor.Error(<span class="hljs-string">'unauthorized'</span>,
+    <span class="hljs-string">'Only admins and moderators can delete posts.'</span>);
+}
+
+Posts.remove(postId);
+</code></pre></section><section id="sec-undefined.-.-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-.-">7.6.2</a></span>基于文档的权限</h4><p>如下所示，我们首先通过文档的owner来判断用户是否有权限</p><pre><code>Lists.helpers({
+  <span class="hljs-comment">// ...</span>
+  editableBy(userId) {
+    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.userId) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.userId === userId;
+  },
+  <span class="hljs-comment">// ...</span>
+});
+</code></pre><p>然后根据用户是否允许修改来进行判断</p><pre><code><span class="hljs-keyword">const</span> list = Lists.findOne(listId);
+
+<span class="hljs-keyword">if</span> (! list.editableBy(userId)) {
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Meteor.Error(<span class="hljs-string">'unauthorized'</span>,
+    <span class="hljs-string">'Only list owners can edit private lists.'</span>);
+}
+</code></pre></section></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">7.7</a></span>练习</h3><ol><li>为项目添加基本的登录</li><li>使用useraccounts来时实现复杂的登录系统</li><li>使用useraccounts和FlowRouter来时实现基于React的登录系统</li><li>自定义字段及其发布 </li></ol></section></section><section id="sec-undefined.-"><h2><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-">8</a></span>数据建模</h2><section id="sec-MongoDB-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-MongoDB-">8.1</a></span>MongoDB数据集</h3><p>目前的Meteor程序只能以MongoDB作为数据持久化的数据库，数据在以数据集(Collection)的形式存在。</p><section id="sec-MongoDB-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-MongoDB-.-">8.1.1</a></span>服务端数据集</h4></section><section id="sec-MongoDB-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-MongoDB-.-">8.1.2</a></span>客户端数据集</h4></section><section id="sec-MongoDB-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-MongoDB-.-">8.1.3</a></span>本地数据集</h4></section></section><section id="sec--Schema"><h3><span class="spec-secid" title="link to this section"><a href="#sec--Schema">8.2</a></span>定义Schema</h3></section></section><section id="sec-undefined.-"><h2><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-">9</a></span>数据加载</h2><p>在传统的Web应用里，客户端和服务端是通过&lsquo;request&#8208;response&rsquo;方式进行通信的。 客户端一般是通过RESTful的HTTP请求服务器，并获得HTML或者JSON格式数据的反馈。而Meteor基于则DDP协议建立，允许数据做双向的通信，建立一个Meteor应用并不需要构建REST接口，而是创建一个人publication，然后就可以将数据从服务器端推送到客户端了。</p><ul><li><strong>发布publication</strong> 发布是一个服务端的命名API，他可以构建数据集发送到客户端。</li><li><strong>订阅subscription</strong> 客户端可以点阅服务端的发布，并获取数据；第一次初始化时会获得一批数据，而后面当数据发生变化时，获得的数据也会获得更新。</li></ul><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">9.1</a></span>定义发布</h3><p>发布需要在服务端代码里定义，比如</p><pre><code>Meteor.publish(<span class="hljs-string">'Lists.public'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> Lists.find({
+    userId: {$exists: <span class="hljs-literal">false</span>}
+  }, {
+    fields: Lists.publicFields
+  });
+});
+</code></pre><p>上述代码有2个注意点：</p><ol><li>这个发布的名称是 <code>Lists.public</code>，客户端可以通过名称订阅</li><li>发布返回的是Mongo的游标<code>cursor</code>, 而且仅仅返回指定的部分字段</li></ol></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">9.2</a></span>发布的参数</h3><p>每个发布可以使用2类参数</p><ol><li><code>this</code>, 包含当前DDP连接的信息。 比如，可以通过<code>this.userId</code>获得当前用户的<code>_id</code></li><li>通过<code>Meteor.subscribe</code>传入的参数。</li></ol><p>特别注意的是： 以为我们需要通过<code>this</code>参数来获得上下文信息，所以我们需要用<code>function() {}</code> 形式的函数，而不是ES6的<code>()=&gt;{}</code>写法。 （这一点在未来的API里面可能获得改进）</p><p>下面看一段代码：</p><pre><code>Meteor.publish(<span class="hljs-string">'Lists.private'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.userId) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.ready();
+  }
+
+  <span class="hljs-keyword">return</span> Lists.find({
+    userId: <span class="hljs-keyword">this</span>.userId
+  }, {
+    fields: Lists.publicFields
+  });
+});
+</code></pre><p>这段代码只会将用户自己的list发布给他。 当用户没有登录是，直接调用 <code>this.ready()</code> 以表示已经将所有数据发送完毕。 如果不返回cursor，也不调用<code>this.ready()</code>，这个订阅就一直不会变成ready，会永远处于loading状态。</p><p>下面是一个具体的带参数发布及其订阅的例子：</p><pre><code>Meteor.publish(<span class="hljs-string">'Todos.inList'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">listId</span>) </span>{
+  <span class="hljs-comment">// We need to check the `listId` is the type we expect</span>
+  <span class="hljs-keyword">new</span> SimpleSchema({
+    listId: {type: <span class="hljs-built_in">String</span>}
+  }).validate({ listId });
+
+  <span class="hljs-comment">// ...</span>
+});
+</code></pre><pre><code>Meteor.subscribe(<span class="hljs-string">'Todos.inList'</span>, list._id);
+</code></pre></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">9.3</a></span>订阅数据</h3><p>在客户端通过名称调用<code>Meteor.subscribe()</code>来订阅数据，完成订阅后，客户端会打开一个订阅，然后服务端会自动发送数据到客户端。 这个函数会返回一个&ldquo;subscription handle&rdquo;句柄，这个句柄有一个<code>.ready()</code>的属性，当订阅ready时，它的值是true。</p><pre><code><span class="hljs-keyword">const</span> handle = Meteor.subscribe(<span class="hljs-string">'Lists.public'</span>);
+</code></pre><section id="sec-undefined.-.-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-.-">9.3.1</a></span>停止订阅</h4><p>当订阅完成时，你必须调用<code>.stop()</code>方法来结束订阅，否则会浪费额外的资源。 不过如果调用是在一个reactive上下文中的话，系统最终会在合适的时候自动调用<code>this.stop()</code>。</p></section><section id="sec-undefined.-.-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-.-">9.3.2</a></span>在哪写订阅</h4><p>写订阅最好的地方是和使用数据最近的地方，这样的程序更容易理解，这意味着在实际工作中最好把订阅写作 <em>组件</em> 里。 在Blaze里，可以放在模板的 <code>onCreated()</code> 回调里：</p><pre><code>Template.Lists_show_page.onCreated(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>.getListId = () =&gt; FlowRouter.getParam(<span class="hljs-string">'_id'</span>);
+
+  <span class="hljs-keyword">this</span>.autorun(() =&gt; {
+    <span class="hljs-keyword">this</span>.subscribe(<span class="hljs-string">'Todos.inList'</span>, <span class="hljs-keyword">this</span>.getListId());
+  });
+});
+</code></pre><p>上述代码里面有2个重要的技术点：</p><ol><li>调用 <code>this.subscribe()</code> (而不是 <code>Meteor.subscribe</code>), 然后会给模板示例附加一个特殊的 <code>subscriptionsReady()</code> 函数，当所有订阅完成时，这个函数返回true。</li><li>调用 <code>this.autorun</code> 将设置一个reactive的上下文，每当<code>this.getListId()</code> 变化时会重新初始化订阅。</li></ol></section><section id="sec-undefined.-.-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-.-">9.3.3</a></span>获取数据</h4><p>订阅数据会将数据放置到客户端的数据集里，需要在界面里面使用这些数据时，需要查询客户端的数据集。这里有一些相关的规则如下：</p><p><strong>本地也需要使用查询条件</strong></p><p>因为在订阅的过程中会添加查询条件，往往就容易在本地使用数据时忘记添加查询条件，但是这种用法可能会有一些问题。 考虑如下情况</p><ol><li>还有一个其他的订阅，也订阅了同样的数据集，结果在本地会放置在同一个本地数据库里，查询条件以及对应的数据可能不一样。</li><li>当订阅发生变化的时候，有一个数据加载的阶段，数据是发生变化的。</li></ol><p><strong>在订阅数据附近获取他</strong></p><p>这样有利于从代码的角度理解数据的来源。另外，一个比较常见的编程模式是在父组件里面获取数据，然后再传递给他的纯子组件。</p></section><section id="sec-undefined.-.-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-.-">9.3.4</a></span>全局订阅</h4><p>有些数据是你在任何场合都需要使用的，这种数据可能适合全局订阅。但是即使是这种情况，也可以构造一个布局组件，然后在这个组件里面进行订阅。</p></section></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">9.4</a></span>数据加载模式</h3><section id="sec-undefined.-.-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-.-">9.4.1</a></span>订阅完成</h4><p>订阅不会离开获得所需要的数据，从开始订阅到数据抵达客户端会有一个延时。在实际的生产环境中，这个延时往往比开发时大很多。为了确保更好的用户体验，你需要知道数据什么时候加载完成。</p><p>为了达到这个目的，<code>Meteor.subscribe()</code> 和 Blaze中的<code>this.subscribe()</code> 会返回一个订阅句柄，其中包含一个reactive数据，叫做<code>.ready()</code>，可以通过这个信息来控制什么时候给用户显示内容，什么时候给用户显示加载页面。</p><pre><code><span class="hljs-keyword">const</span> handle = Meteor.subscribe(<span class="hljs-string">'Lists.public'</span>);
+Tracker.autorun(() =&gt; {
+  <span class="hljs-keyword">const</span> isReady = handle.ready();
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Handle is <span class="hljs-subst">${isReady ? 'ready' : 'not ready'}</span>`</span>);  
+});
+</code></pre></section><section id="sec-undefined.-.-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-.-">9.4.2</a></span>动态改变订阅参数</h4><p>使用Reactive参数订阅时，当订阅参数发生变化，会重新发生订阅，如下</p><pre><code>Template.Lists_show_page.onCreated(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>.getListId = () =&gt; FlowRouter.getParam(<span class="hljs-string">'_id'</span>);
+
+  <span class="hljs-keyword">this</span>.autorun(() =&gt; {
+    <span class="hljs-keyword">this</span>.subscribe(<span class="hljs-string">'Todos.inList'</span>, <span class="hljs-keyword">this</span>.getListId());
+  });
+});
+</code></pre><p>这个例子中，只要<code>this.getListId()</code>的结果发生变化，<code>autorun</code>就会重新运行。</p></section><section id="sec-undefined.-.-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-.-">9.4.3</a></span>瀑布流加载</h4><p>Meteor里一般使用瀑布流代替传统的分页加载。在无限瀑布流的里，首先需要给出排序参数和可以最大支持的数量。</p><pre><code><span class="hljs-keyword">const</span> MAX_TODOS = <span class="hljs-number">1000</span>;
+
+Meteor.publish(<span class="hljs-string">'Todos.inList'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">listId, limit</span>) </span>{
+  <span class="hljs-keyword">new</span> SimpleSchema({
+    listId: { type: <span class="hljs-built_in">String</span> },
+    limit: { type: <span class="hljs-built_in">Number</span> }
+  }).validate({ listId, limit });
+
+  <span class="hljs-keyword">const</span> options = {
+    sort: {createdAt: -<span class="hljs-number">1</span>},
+    limit: <span class="hljs-built_in">Math</span>.min(limit, MAX_TODOS)
+  };
+
+  <span class="hljs-comment">// ...</span>
+});
+</code></pre><p>然后在客户端，需要设置某种状态变量（比如下面代码中的<code>requestedTodos</code>）来控制需要加载多少数据，当用户需要加载更多数据的时候，修改这个数据的值就可以了。</p><pre><code>Template.Lists_show_page.onCreated(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>.getListId = () =&gt; FlowRouter.getParam(<span class="hljs-string">'_id'</span>);
+
+  <span class="hljs-keyword">this</span>.autorun(() =&gt; {
+    <span class="hljs-keyword">this</span>.subscribe(<span class="hljs-string">'Todos.inList'</span>,
+      <span class="hljs-keyword">this</span>.getListId(), <span class="hljs-keyword">this</span>.state.get(<span class="hljs-string">'requestedTodos'</span>));
+  });
+});
+</code></pre><p>这里，可以加载的数据总量也是非常重要的，可以通过 <a href="https://atmospherejs.com/tmeasday/publish-counts"><code>tmeasday:publish-counts</code></a> 这个包来发布这项数据。</p><pre><code>Meteor.publish(<span class="hljs-string">'Lists.todoCount'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">{ listId }</span>) </span>{
+  <span class="hljs-keyword">new</span> SimpleSchema({
+    listId: {type: <span class="hljs-built_in">String</span>}
+  }).validate({ listId });
+
+  Counts.publish(<span class="hljs-keyword">this</span>, <span class="hljs-string">`Lists.todoCount.<span class="hljs-subst">${listId}</span>`</span>, Todos.find({listId}));
+});
+</code></pre><p>在客户端订阅以后，可以通过如下方式获得数据</p><pre><code>Counts.get(<span class="hljs-string">`Lists.todoCount.<span class="hljs-subst">${listId}</span>`</span>)
+</code></pre></section></section><section id="sec-Reactive-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-Reactive-">9.5</a></span>Reactive客户端数据</h3><p>在Meteor中，可以通过发布来共享数据和做数据持久化。不过，有些数据不需要多用户共享和持久化，但是需要在客户端共享。 这样的数据是一个科幻的全局单例。在Meteor中，最好将数据变成变成reactive数据，这样很方便和整个生态系统共存。</p><p>最简单的，如果数据是一维的，可以使用<code>ReactiveVar</code>来保存它，它具备<code>get()</code>和<code>set()</code>2个属性:</p><pre><code>DocumentHidden = <span class="hljs-keyword">new</span> ReactiveVar(<span class="hljs-built_in">document</span>.hidden);
+$(<span class="hljs-built_in">window</span>).on(<span class="hljs-string">'visibilitychange'</span>, (event) =&gt; {
+  DocumentHidden.set(<span class="hljs-built_in">document</span>.hidden);
+});
+</code></pre><p>复杂一些，如果数据是多维的，则可以使用<code>ReactiveDict</code>，<code>ReactiveDict</code>的优点在于你可以单独访问每个数据(<code>WindowSize.get(&#x27;width&#x27;)</code>), 然后dict会跟踪每个数据的变化。</p><pre><code><span class="hljs-keyword">const</span> $<span class="hljs-built_in">window</span> = $(<span class="hljs-built_in">window</span>);
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getDimensions</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> {
+    width: $<span class="hljs-built_in">window</span>.width(),
+    height: $<span class="hljs-built_in">window</span>.height()
+  };
+};
+
+WindowSize = <span class="hljs-keyword">new</span> ReactiveDict();
+WindowSize.set(getDimensions());
+$<span class="hljs-built_in">window</span>.on(<span class="hljs-string">'resize'</span>, () =&gt; {
+  WindowSize.set(getDimensions());
+});
+</code></pre><p>如果再复杂一些，需要本地的查询或者关联功能，则可以使用本地数据集。</p></section><section id="sec-undefined.-.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-.-">9.6</a></span>发布关联数据</h3><p>常常需要在一处发布多个具有关联关系的数据集的数据，比如我们在发布一个todo list的同时，也需要发布跟他关联的todo项。</p><p>下面代码看起来似乎能够达到目的，它一次性的返回了多个游标。</p><pre><code>Meteor.publish(<span class="hljs-string">'Todos.inList'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">listId</span>) </span>{
+  <span class="hljs-keyword">new</span> SimpleSchema({
+    listId: {type: <span class="hljs-built_in">String</span>}
+  }).validate({ listId });
+
+  <span class="hljs-keyword">const</span> list = List.findOne(listId);
+
+  <span class="hljs-keyword">if</span> (list &amp;&amp; (!list.userId || list.userId === <span class="hljs-keyword">this</span>.userId)) {
+    <span class="hljs-keyword">return</span> [
+      Lists.find(listId),
+      Todos.find({listId})
+    ];
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.ready();
+  }
+});
+</code></pre><p>但是这样的代码会有一些问题，因为reactivity在服务端和客户端是不一样的。 在客户端，只要reactive函数里面的任何数据发生变化，整个函数都是重新运行。而在服务端，reactivity将取决于从发布函数返回的游标的行为，在上面的例子里，如果一个人订阅其他人的list被变成私有的，这样就满足不了条件了，但是发布函数并不会重新运行，从而数据集不会方式变化。</p><p>但是，我们可以用<a href="https://atmospherejs.com/reywood/publish-composite"><code>reywood:publish-composite</code></a>包来编写有效跨数据集的reactive订阅。这里可以首先创建一个指向第一个数据集的游标，然后基于第一个游标的结果建立第二个游标。 当数据源变化时，这个包会触发重新运行的动作。</p><pre><code>Meteor.publishComposite(<span class="hljs-string">'Todos.inList'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">listId</span>) </span>{
+  <span class="hljs-keyword">new</span> SimpleSchema({
+    listId: {type: <span class="hljs-built_in">String</span>}
+  }).validate({ listId });
+
+  <span class="hljs-keyword">const</span> userId = <span class="hljs-keyword">this</span>.userId;
+
+  <span class="hljs-keyword">return</span> {
+    find() {
+      <span class="hljs-keyword">const</span> query = {
+        _id: listId,
+        $or: [{userId: {$exists: <span class="hljs-literal">false</span>}}, {userId}]
+      };
+
+      <span class="hljs-comment">// We only need the _id field in this query, since it's only</span>
+      <span class="hljs-comment">// used to drive the child queries to get the todos</span>
+      <span class="hljs-keyword">const</span> options = {
+        fields: { _id: <span class="hljs-number">1</span> }
+      };
+
+      <span class="hljs-keyword">return</span> Lists.find(query, options);
+    },
+
+    children: [{
+      find(list) {
+        <span class="hljs-keyword">return</span> Todos.find({ listId: list._id }, { fields: Todos.publicFields });
+      }
+    }]
+  };
+});
+</code></pre><p>In this example, we write a complicated query to make sure that we only ever find a list if we are allowed to see it, then, once per list we find (which can be one or zero times depending on access), we publish the todos for that list. Publish Composite takes care of stopping and starting the dependent cursors if the list stops matching the original query or otherwise. </p></section></section><section id="sec-Method"><h2><span class="spec-secid" title="link to this section"><a href="#sec-Method">10</a></span>Method</h2><section id="sec-Method.-Method"><h3><span class="spec-secid" title="link to this section"><a href="#sec-Method.-Method">10.1</a></span>什么是Method</h3><p>Method是一种客户端远程调用(remote procedure call)服务端接口的技术手段。</p><p>从本质来说，Method是服务器的API端点(endpoint)，可以在服务端定义一个Method以及他对应的客户端的部分，然后使用一些数据调用它，写入数据库，最终通过回调函数返回数据。 Method紧密地和数据加载系统整合，并支持OptimisticUI。</p></section><section id="sec-Method.-Method"><h3><span class="spec-secid" title="link to this section"><a href="#sec-Method.-Method">10.2</a></span>定义和调用Method</h3><section id="sec-Method.-Method.-Method"><h4><span class="spec-secid" title="link to this section"><a href="#sec-Method.-Method.-Method">10.2.1</a></span>基本Method</h4><p><strong>定义</strong></p><p>可以通过内置的Meteor.methods API来定义Method，而Method总是可以在客户端及服务端加载以支持OptimisticUI。</p><p>下面这个例子使用<code>aldeed:simple-schema</code>包来做Method的参数校验</p><pre><code>Meteor.methods({
+  <span class="hljs-string">'Todos.methods.updateText'</span>({ todoId, newText }) {
+    <span class="hljs-keyword">new</span> SimpleSchema({
+      todoId: { type: <span class="hljs-built_in">String</span> },
+      newText: { type: <span class="hljs-built_in">String</span> }
+    }).validate({ todoId, newText });
+
+    <span class="hljs-keyword">const</span> todo = Todos.findOne(todoId);
+
+    <span class="hljs-keyword">if</span> (!todo.editableBy(<span class="hljs-keyword">this</span>.userId)) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Meteor.Error(<span class="hljs-string">'Todos.methods.updateText.unauthorized'</span>,
+        <span class="hljs-string">'Cannot edit todos in a private list that is not yours'</span>);
+    }
+
+    Todos.update(todoId, {
+      $set: { text: newText }
+    });
+  }
+});
+</code></pre><p><strong>调用</strong></p><p>可以在客户端及服务端使用<code>Meteor.call</code>来调用Method，需要注意的是，我们仅是需要定义一个从客户端调用服务端的方法的时候，才会使用Method，如果仅仅是在服务端调用服务端的功能，使用常规的JavaScript函数就行了，而不是一个Method。</p><p>下面这个例子展示了如何在客户端调用Method</p><pre><code>Meteor.call(<span class="hljs-string">'Todos.methods.updateText'</span>, {
+  todoId: <span class="hljs-string">'12345'</span>,
+  newText: <span class="hljs-string">'This is a todo item.'</span>
+}, (err, res) =&gt; {
+  <span class="hljs-keyword">if</span> (err) {
+    alert(err);
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">// success!</span>
+  }
+});
+</code></pre><p>如果调用出错，Method会通过回调函数的第一个参数抛出一个error，如果调用成功，Method会通过回调函数的第二个参数返回结果。</p></section><section id="sec-Method.-Method.-Method"><h4><span class="spec-secid" title="link to this section"><a href="#sec-Method.-Method.-Method">10.2.2</a></span>高级Method</h4><p>通过多年的改进，Method具备一些不是很直观的高端特性，完整地使用这些特性需要比较合适的boilerplate。我们首先介绍针对每个特性需要的编码，然后演示一个包装这些特性的package。</p><p>一个理想的Method需要具备如下特点：</p><ol><li>合理的验证代码</li><li>容易测试</li><li>容易使用一个定制的userid调用</li><li>通过JS Module而不是字符串调用Method</li><li>通过返回值来获得插入文档的id</li><li>如果客户端验证失败，则不用调用服务器端Method，以免浪费服务器计算资源。</li></ol><p><strong>定义</strong></p><pre><code><span class="hljs-comment">// Define a namespace for Methods related to the Todos collection</span>
+<span class="hljs-comment">// Allows overriding for tests by replacing the implementation (2)</span>
+Todos.methods = {};
+
+Todos.methods.updateText = {
+  name: <span class="hljs-string">'Todos.methods.updateText'</span>,
+
+  <span class="hljs-comment">// 独立验证代码，从而它可以独立运行 (1)</span>
+  validate(args) {
+    <span class="hljs-keyword">new</span> SimpleSchema({
+      todoId: { type: <span class="hljs-built_in">String</span> },
+      newText: { type: <span class="hljs-built_in">String</span> }
+    }).validate(args)
+  },
+
+  <span class="hljs-comment">// 独立Method嗲吗，从而它可以独立被调用 (3)</span>
+  run({ todoId, newText }) {
+    <span class="hljs-keyword">const</span> todo = Todos.findOne(todoId);
+
+    <span class="hljs-keyword">if</span> (!todo.editableBy(<span class="hljs-keyword">this</span>.userId)) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Meteor.Error(<span class="hljs-string">'Todos.methods.updateText.unauthorized'</span>,
+        <span class="hljs-string">'Cannot edit todos in a private list that is not yours'</span>);
+    }
+
+    Todos.update(todoId, {
+      $set: { text: newText }
+    });
+  },
+
+  <span class="hljs-comment">// Call Method by referencing the JS object (4)</span>
+  <span class="hljs-comment">// Also, this lets us specify Meteor.apply options once in</span>
+  <span class="hljs-comment">// the Method implementation, rather than requiring the caller</span>
+  <span class="hljs-comment">// to specify it at the call site.</span>
+  call(args, callback) {
+    <span class="hljs-keyword">const</span> options = {
+      returnStubValue: <span class="hljs-literal">true</span>,     <span class="hljs-comment">// (5)</span>
+      throwStubExceptions: <span class="hljs-literal">true</span>  <span class="hljs-comment">// (6)</span>
+    }
+
+    Meteor.apply(<span class="hljs-keyword">this</span>.name, [args], options, callback);
+  }
+};
+
+<span class="hljs-comment">// 在Meteor的DDP系统里面注册方法</span>
+Meteor.methods({
+  [Todos.methods.updateText.name]: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">args</span>) </span>{
+    Todos.methods.updateText.validate.call(<span class="hljs-keyword">this</span>, args);
+    Todos.methods.updateText.run.call(<span class="hljs-keyword">this</span>, args);
+  }
+})
+</code></pre><p><strong>调用</strong></p><p>调用Method和调用一个普通的饿JavaScript函数一样方便</p><pre><code><span class="hljs-comment">// Call the Method</span>
+Todos.methods.updateText.call({
+  todoId: <span class="hljs-string">'12345'</span>,
+  newText: <span class="hljs-string">'This is a todo item.'</span>
+}, (err, res) =&gt; {
+  <span class="hljs-keyword">if</span> (err) {
+    alert(err);
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">// success!</span>
+  }
+});
+
+<span class="hljs-comment">// Call the validation only</span>
+Todos.methods.updateText.validate({ wrong: <span class="hljs-string">'args'</span>});
+
+<span class="hljs-comment">// Call the Method with custom userId in a test</span>
+Todos.methods.updateText.run.call({ userId: <span class="hljs-string">'abcd'</span> }, {
+  todoId: <span class="hljs-string">'12345'</span>,
+  newText: <span class="hljs-string">'This is a todo item.'</span>
+});
+</code></pre><p>上述代码可以产生一个更好的开发流程，可以更好地处理Method的不同部分以及更加简单的测试。但是这个方法会写非常多的代码。</p></section><section id="sec--mdg-validated-method-Method"><h4><span class="spec-secid" title="link to this section"><a href="#sec--mdg-validated-method-Method">10.2.3</a></span>使用mdg:validated-method实现高级Method</h4><p><code>mdg:validated-method</code>这个包封装了上述流程的很多部分，从而方面定义一个具备丰富特性的Method。</p><p>上一个例子的具体代码简写如下，可以用同样的方法进行调用，但是Method的定义简单了很多，而且表意更加明确。</p><pre><code>Todos.methods.updateText = <span class="hljs-keyword">new</span> ValidatedMethod({
+  name: <span class="hljs-string">'Todos.methods.updateText'</span>,
+  validate: <span class="hljs-keyword">new</span> SimpleSchema({
+    todoId: { type: <span class="hljs-built_in">String</span> },
+    newText: { type: <span class="hljs-built_in">String</span> }
+  }).validator(),
+  run({ todoId, newText }) {
+    <span class="hljs-keyword">const</span> todo = Todos.findOne(todoId);
+
+    <span class="hljs-keyword">if</span> (!todo.editableBy(<span class="hljs-keyword">this</span>.userId)) {
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Meteor.Error(<span class="hljs-string">'Todos.methods.updateText.unauthorized'</span>,
+        <span class="hljs-string">'Cannot edit todos in a private list that is not yours'</span>);
+    }
+
+    Todos.update(todoId, {
+      $set: { text: newText }
+    });
+  }
+});
+</code></pre></section></section><section id="sec-Method.-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-Method.-">10.3</a></span>错误处理</h3><p>正常JavaScript函数里的错误会抛出一个Error对象，在Meteor Method里面也类似，不同的是这个error对象会通过websocket返回到client端。</p><section id="sec-Method.-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-Method.-.-">10.3.1</a></span>抛出错误</h4><p>Meteor引入了2种错误：Meteor.Error和ValidationError，这些Error和普通的JavaScript Error会在不同的条件下使用：</p><p><strong>一般错误</strong></p><p>如果错误仅是服务器内部的，不需要返回给客户端时，抛出一个普通的JavaScript错误对象即可。 这种情况下客户端会获得一个没有任何细节的不透明的服务端错误。</p><p><strong>Meteor.Error</strong></p><p>当服务器无法完成客户端的请求，在需要抛出一个带描述的<code>Meteor.Error</code>对象给客户端，它具备3个参数：error，reason和details。</p><ol><li><strong>error</strong> 是一个简短唯一的机器可读客户端课理解的错误编码字符串。最好将Method名称设置成前缀。</li><li><strong>reason</strong> 一个简短的针对开发者的描述。需要具备足够的能够debug这个错误的信息。这个信息不应该直接打印到客户端。</li><li><strong>detail</strong> 是可选的， 提供一些额外的信息帮助客户端理解错误内容。 一般，这个信息可以和error信息组合起来打印出有用的报错信息给终端用户。</li></ol><p><strong>ValidationError</strong></p><p>当参数验证错误时，会抛出一个ValidationError。如果使用了<code>mdg:validated-method</code>的<code>aldeed:simple-schema</code>组合，这个错误是会自动抛出的。 具体内容可以参考<code>mdg:validation-error</code>的<a href="https://atmospherejs.com/mdg/validation-error">文档</a>。</p></section><section id="sec-Method.-.-"><h4><span class="spec-secid" title="link to this section"><a href="#sec-Method.-.-">10.3.2</a></span>处理错误</h4><p>调用Method的时候，任何它抛出的错误都会在回调函数里返回，这时需要判断是哪种异常，并显示给用户合适的信息。</p><pre><code>Todos.methods.updateText.call({
+  todoId: <span class="hljs-string">'12345'</span>,
+  newText: <span class="hljs-string">'This is a todo item.'</span>
+}, (err, res) =&gt; {
+  <span class="hljs-keyword">if</span> (err) {
+    <span class="hljs-keyword">if</span> (err.error === <span class="hljs-string">'Todos.methods.updateText.unauthorized'</span>) {
+      <span class="hljs-comment">// Displaying an alert is probably not what you would do in</span>
+      <span class="hljs-comment">// a real app; you should have some nice UI to display this</span>
+      <span class="hljs-comment">// error, and probably use an i18n library to generate the</span>
+      <span class="hljs-comment">// message from the error code.</span>
+      alert(<span class="hljs-string">'You aren\'t allowed to edit this todo item'</span>);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-comment">// Unexpected error, handle it in the UI somehow</span>
+    }
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">// success!</span>
+  }
+});
+</code></pre></section></section><section id="sec-Method-"><h3><span class="spec-secid" title="link to this section"><a href="#sec-Method-">10.4</a></span>Method加载数据</h3><p>因为Method可以被用作通用的RPC，所以它也可以代替发布来获取数据，他们各自有自己的优缺点。</p><p>Method可以用来获取可能是经过复杂计算的不跟随服务器数据变化的数据。不过这种方法的缺点在于，这种数据不会被自动放到minimongo里面，这样则需要手工管理这些数据。可以使用本地数据集来管理和显示从Method中而不是通过发布订阅获取的数据。</p><p>首先，需要创建一个本地数据集(local collection)，这样的数据集仅存在于客户端而不是服务端。</p><pre><code><span class="hljs-comment">// In client-side code, declare a local collection</span>
+<span class="hljs-comment">// by passing `null` as the argument</span>
+ScoreAverages = <span class="hljs-keyword">new</span> Mongo.Collection(<span class="hljs-literal">null</span>);
+</code></pre><p>然后，如果使用Method获取数据，则可以放到这个数据集里</p><pre><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateAverages</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// Clean out result cache</span>
+  ScoreAverages.remove({});
+
+  <span class="hljs-comment">// Call a Method that does an expensive computation</span>
+  Games.methods.calculateAverages.call((err, res) =&gt; {
+    res.forEach((item) =&gt; {
+      ScoreAverages.insert(item);
+    });
+  });
+}
+</code></pre><p>然后就可以在UI组件里面和访问普通MongoDB数据集一样访问了。 这样的数据不会自动更新，每当我们需要新数据时，必须手工调用updateAverages。</p></section><section id="sec--Method-"><h3><span class="spec-secid" title="link to this section"><a href="#sec--Method-">10.5</a></span>调用Method的生命周期</h3><ol><li>客户端模拟运行Method</li><li>发送一个method DDP消息到服务器</li><li>服务端运行Method</li><li>返回值发送给客户端</li><li>任何被Method影响的DDP发布都会更新</li><li>updated消息发给客户端，采用服务端结果更新数据，回调执行</li></ol></section><section id="sec-Method-REST"><h3><span class="spec-secid" title="link to this section"><a href="#sec-Method-REST">10.6</a></span>Method对比REST</h3><ul><li>Method使用同步调用，但是并没有阻塞</li><li>Method总是按照顺序运行</li></ul><p>- </p></section></section><section id="sec-undefined.-"><h2><span class="spec-secid" title="link to this section"><a href="#sec-undefined.-">A</a></span>术语表</h2><p><strong> 客户端 Client </strong></p><p>当我们谈论客户端时，我们指的是用户的<strong>网页浏览器</strong>，不论是传统的像 Firebox 或 Safari 的浏览器，或是像在 iPhone 原生应用中的 UIwebView 一样复杂的其他程序。</p><p><strong> 集合 Collection </strong></p><p>Meteor 的集合是自动在客户与服务器之间同步的数据源。集合的名称（比如 <code>posts</code>）通常存在于客户端和服务器端。虽然它们表现不同，但是它们有共同的基于 Mongo 的 API。</p><p><strong> 组件 Component </strong></p><p>Meteor支持3个界面库Blaze，React和Angular，其用来构建的可复用界面元素称为&ldquo;组件(Component)&rdquo;。</p><p><strong> Computation </strong></p><p>Computation 就是每当响应数据源变化时而运行的代码块。如果你想让一个响应数据源去响应处理（比如，Session 变量），你需要为它来设置一个 computation。</p><p><strong> 游标 Cursor </strong></p><p>Cursor 是查询 Mongo 集合后的结果。在客户端，cursor 不仅仅是结果的数组，也是一个<em>响应的</em>对象，对应于相关集合的添加、删除和更新对象。</p><p><strong> 分布式数据协议 DDP </strong></p><p>DDP 是 Meteor 的分布式数据协议，用来同步集合和调用方法。DDP 的目的是作为一个通用的协议，在大数据的实时应用中起 HTTP 的作用。</p><p><strong> Tracker </strong></p><p>Tracker 是 Meteor 响应性系统。Tracker 在后台使 HTML 自动保持与底层数据模型的同步。</p><p><strong> 文档 Document </strong></p><p>Mongo 是基于文档（document）的数据库，多个文档组成集合。它们是纯 JavaScript 对象（虽然它们不能包含函数），只有一个 <code>_id</code> 属性，Meteor 用这个属性通过 DDP 跟踪这些对象的属性。</p><p><strong> Helper </strong></p><p>当模板需要渲染复杂的多于一个文档属性时，调用 helper 以函数方式来完成渲染任务。</p><p><strong> 延迟补偿 Latency Compensation </strong></p><p>延迟补偿是一种在客户端模拟方法调用以避免等待服务器回应的一种技术。</p><p><strong> 方法 Method </strong></p><p>Meteor 方法是一个从客户端到服务器端的远程调用，以一些特别的逻辑保持跟踪集合的更改和允许延迟补偿。</p><p><strong> MiniMongo </strong></p><p>客户端的集合，是有类似 Mongo API 并存在内存的数据源。支持这种操作的库叫做&ldquo;MiniMongo&rdquo;，是在内存中运行的小版本的 Mongo。</p><p><strong> 代码包 Package </strong></p><p>Meteor 代码包可以包含服务器端运行的、客户端运行的 JavaScript 代码，处理资源的说明（比如 SASS 至 CSS），处理的资源。<br/>代码包就像一个超级库。Meteor 自带了很多核心代码包，同时在 <a href="http://atmosphere.meteor.com">Atmosphere</a> 集合了社区提供的第三方代码包。</p><p><strong> 发布 Publication </strong></p><p>一个发布就是一套为每个订阅用户而订制的数据。在服务器端设置发布。</p><p><strong> 服务器 Server </strong></p><p>Meteor 服务器是运行在 Node.js 之上的 HTTP 和 DDP 服务器。它包含了所有的 Meteor 库，同时也包含了你的服务器端的 JavaScript 代码。当 Meteor 服务器启动时，它会连接 Mongo 数据库（在开发模式时，会自启动）。</p><p><strong> 会话 Session </strong></p><p>在 Meteor 中，会话指的是客户端的响应数据源，用来跟踪用户所处的状态。</p><p><strong> 订阅 Subscription </strong></p><p>订阅是为特定客户的发布的连接。订阅是运行在浏览器中的代码，与服务器的发布对话，并保持数据同步。</p><p><strong> 模板 Template </strong></p><p>模板就是一个通过 JavaScript 生成 HTML 的方法。Meteor 默认支持 Spacebars 模板系统，但是将来也会支持其他系统。</p><p><strong> 模板数据上下文 Template Data Context </strong></p><p>当模板渲染时，它指的是 JavaScript 对象为此次渲染提供特定的数据。通常来说，对象就是纯原始的 JavaScript 对象（POJO），经常也是集合的文档，但是它们也可以变得更复杂，可拥有函数。 </p></section><footer>Written in <a href="http://leebyron.com/spec-md/" target="_blank">Spec Markdown</a>.</footer></body></html>
