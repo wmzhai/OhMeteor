@@ -1,33 +1,29 @@
 # 代码规范
 
-After reading this article, you'll know:
+读完本章后，您将了解
 
-1. Why it's a good idea to have consistent code style
-2. Which style guide we recommend for JavaScript code
-3. How to set up ESLint to check code style automatically
-4. Style suggestions for Meteor-specific patterns, such as Methods, publications, and more
-
+1. 为什么需要一致的代码规范
+2. 我们针对JavaScript代码的规范是什么
+3. 如何设置ESLint进行代码自动检测
+4. Meteor相关的代码规范及模式
 
 ## 为什么要规范代码
 
-Countless hours have been spent by developers throughout the years arguing over single vs. double quotes, where to put brackets, how many spaces to type, and all kinds of other cosmetic code style questions. These are all questions that have at best a tangential relationship to code quality, but are very easy to have opinions about because they are so visual.
-
-While it's not necessarily important whether your code base uses single or double quotes for string literals, there are huge benefits to making that decision once and having it be consistent across your organization. These benefits also apply to the Meteor and JavaScript development communities as a whole.
+程序员在代码规范上的争论花费了很多时间，具体例如使用单引号还是双引号，以及大括号的放置位置，以及缩进的空格数等。而这些问题跟代码的质量是有着密切的关系的，在一个组织内统一代码规范是有着巨大的好处的。
 
 ### 容易阅读代码
 
-The same way that you don't read English sentences one word at a time, you don't read code one token at a time. Mostly you just look at the shape of a certain expression, or the way it highlights in your editor, and assume what it does. If the style of every bit of code is consistent, that ensures that bits of code that look the same actually _are_ the same - there isn't any hidden punctuation or gotchas that you don't expect, so you can focus on understanding the logic instead of the symbols. One example of this is indentation - while in JavaScript, indentation is not meaningful, it's helpful to have all of your code consistently indented so that you don't need to read all of the brackets in detail to see what is going on.
+一般情况下并不是逐个单词地阅读代码，大多数情况下，只需要看一下代码的形状以及高亮，就大致了解代码的功能了。如果代码的风格是一致的，读起来就会容易很多。
 
 ```js
-// This code is misleading because it looks like both statements
-// are inside the conditional.
+// 这个代码有很大的误导性，因为两个语句看起来像是在一个条件里面
 if (condition)
   firstStatement();
   secondStatement();
 ```
 
 ```js
-// Much clearer!
+// 这个就比较清楚了
 if (condition) {
   firstStatement();
 }
@@ -37,58 +33,52 @@ secondStatement();
 
 ### 自动错误检查
 
-Having a consistent style means that it's easier to adopt standard tools for error checking. For example, if you adopt a convention that you must always use `let` or `const` instead of `var`, you can now use a tool to ensure all of your variables are scoped the way you expect. That means you can avoid bugs where variables act in unexpected ways. Also, by enforcing that all variables are declared before use, you can easily catch typos before even running any code!
+风格统一的代码更加容易用工具进行错误检查。
 
 ### 更深入的理解
 
 
-It's hard to learn everything about a programming language at once. For example, programmers new to JavaScript often struggle with the `var` keyword and function scope. Using a community-recommended coding style with automatic linting can warn you about these pitfalls proactively. This means you can jump right into coding without learning about all of the edge cases of JavaScript ahead of time.
+一般很难一次学习一种编程语言的所有内容，使用社区推荐的代码规范，能够促使比较高效地避免陷阱。也意味着，你不需要学习所有的语法细节，就可以直接开始工作了，随着时间的退役可以进一步深入的了解。
 
-As you write more code and come up against the recommended style rules, you can take that as an opportunity to learn more about your programming language and how different people prefer to use it.
 
 
 ## JavaScript规范指南
 
-
-Here at Meteor, we strongly believe that JavaScript is the best language to build web applications, for a variety of reasons. JavaScript is constantly improving, and the standards around ES2015 have really brought together the JavaScript community. Here are our recommendations about how to use ES2015 JavaScript in your app today.
-
-![](images/ben-es2015-demo.gif)
+在Meteor社区里，我们坚信JavaScript是构建web应用最佳的语言。 而JavaScript本身也在不断的改进，ES6标准统一了JavaScript社区，下面是我们关于如何在你的应用里使用ES6的建议。
 
 ### 使用`ecmascript`包
 
-ECMAScript, the language standard on which every browser's JavaScript implementation is based, has moved to yearly standards releases. The newest complete standard is ES2015, which includes some long-awaited and very significant improvements to the JavaScript language. Meteor's `ecmascript` package compiles this standard down to regular JavaScript that all browsers can understand using the [popular Babel compiler](https://babeljs.io/). It's fully backwards compatible to "regular" JavaScript, so you don't have to use any new features if you don't want to. We've put a lot of effort into making advanced browser features like source maps work great with this package, so that you can debug your code using your favorite developer tools without having to see any of the compiled output.
+ECMAScript作为跨浏览器的JavaScript标准，已经达到了每年更新一次的程度，最新的标准是ES6，这个标准对语言做出了很大的改进。Meteor的`ecmascript`包通过babel将ES6代码解释成所有浏览器都懂的传统JavaScript。 因为它与传统的JavaScript完全兼容，所以即使您不想使用任何新特性时也没有任何问题。另外，我们这个包也支持source map这样高级的功能，所以你可以使用任何传统的开发工具来调试代码，而不必查看编译输出。
 
-The `ecmascript` package is included in all new apps and packages by default, and compiles all files with the `.js` file extension automatically. See the [list of all ES2015 features supported by the ecmascript package](https://docs.meteor.com/#/full/supportedes2015features).
+默认情况下，所有新建的Meteor项目都会使用`ecmascript`包，并自动编译所有具有`.js`后缀的文件。具体可以参考[ecmascript包支持的ES6特性列表 ](https://docs.meteor.com/#/full/supportedES6features)。
+为了得到完整的支持，您也应该使用`es5-shim`包，它也是一个默认添加的包。者意味着您可以使用诸如`Array#forEach`这样的运行时特性而不必考虑浏览器支持性。
 
-To get the full experience, you should also use the `es5-shim` package which is included in all new apps by default. This means you can rely on runtime features like `Array#forEach` without worrying about which browsers support them.
+进一步信息可以参考如下文章：
 
-All of the code samples in this guide and future Meteor tutorials will use all of the new ES2015 features. You can also read more about ES2015 and how to get started with it on the Meteor Blog:
-
-- [Getting started with ES2015 and Meteor](http://info.meteor.com/blog/es2015-get-started)
-- [Set up Sublime Text for ES2015](http://info.meteor.com/blog/set-up-sublime-text-for-meteor-es6-es2015-and-jsx-syntax-and-linting)
-- [How much does ES2015 cost?](http://info.meteor.com/blog/how-much-does-es2015-cost)
+- [Getting started with ES6 and Meteor](http://info.meteor.com/blog/ES6-get-started)
+- [Set up Sublime Text for ES6](http://info.meteor.com/blog/set-up-sublime-text-for-meteor-es6-ES6-and-jsx-syntax-and-linting)
+- [How much does ES6 cost?](http://info.meteor.com/blog/how-much-does-ES6-cost)
 
 ### 遵循一个JavaScript规范指南
 
-We recommend choosing and sticking to a JavaScript style guide and enforcing it with tools. A popular option that we recommend is the [Airbnb style guide](https://github.com/airbnb/javascript) with the ES6 extensions (and optionally React extensions).
+我们建议选择遵循一个JavaScript规范指南，并使用工具去强制这个指南。一个常见的选项是[Airbnb style guide](https://github.com/airbnb/javascript)的基础上对ES6和React的扩展。
 
 ## 使用ESLint检查代码
 
-"Code linting" is the process of automatically checking your code for common errors or style problems. For example, ESLint can determine if you have made a typo in a variable name, or some part of your code is unreachable because of a poorly written `if` condition.
+Lint是针对常见错误和样式问题对代码自动检查代码的过程。比如，ESLint可以检查出变量的拼写错误，以及是否有一些无效代码的存在。我们建议使用[Airbnb eslint configuration](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb)来遵循Airbnb的规范。
 
-We recommend using the [Airbnb eslint configuration](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb) which verifies the Airbnb styleguide.
-
-Below, you can find directions for setting up automatic linting at many different stages of development. In general, you want to run the linter as often as possible, because it's the fastest and easiest way to identify typos and small errors.
+下面是在不同开发阶段设置自动Lint的指南，一般来说，需要尽可能多地运行lint，因为他是查找微小错误最快捷方便的手段。
 
 ### 安装运行ESLint
 
-To setup ESLint in your application, you can install the following npm packages:
+在应用程序中设置ESLint，可以安装如下npm包：
 
 ```
 npm install --save-dev eslint eslint-plugin-react eslint-plugin-meteor eslint-config-airbnb
 ```
 
-You can also add a `eslintConfig` section to your `package.json` to specify that you'd like to use the Airbnb config, and to enable [ESLint-plugin-Meteor](https://github.com/dferber90/eslint-plugin-meteor). You can also setup any extra rules you want to change, as well as adding a lint npm command:
+您可以在`package.json`里加入一个`eslintConfig`小节，以指定采用Airbnb配置，并使用[ESLint-plugin-Meteor](https://github.com/dferber90/eslint-plugin-meteor).
+您也可以使用任何您需要改变的规则，并加入一个lint的npm指令:
 
 ```
 {
@@ -110,78 +100,34 @@ You can also add a `eslintConfig` section to your `package.json` to specify that
 }
 ```
 
-Use `"airbnb/base"` for a normal ecmascript-based config and `"airbnb"` in a React project.
-
-To run the linter, you can now simply type:
+使用`"airbnb/base"`作为基本配置，并在一个React项目里采用`"airbnb"`，执行lint时只需要执行
 
 ```bash
 npm run lint
 ```
 
-For more details, read the [Getting Started](http://eslint.org/docs/user-guide/getting-started) directions from the ESLint website.
+更详细信息可以参考ESLint主页上的[Getting Started](http://eslint.org/docs/user-guide/getting-started)。
 
-### 与IDE集成
+### WebStorm集成
 
-
-Linting is the fastest way to find potential bugs in your code. Running a linter is usually faster than running your app or your unit tests, so it's a good idea to run it all the time. Setting up linting in your editor can seem annoying at first since it will complain often when you save poorly-formatted code, but over time you'll develop the muscle memory to just write well-formatted code in the first place. Here are some directions for setting up ESLint in different editors:
-
-#### Sublime Text
-
-You can install the Sublime Text packages that integrate them into the text editor. It's generally recommended to use Package Control to add these packages. If you already have that setup, you can just add the these packages by name; if not, click the instructions links:
-
-* Babel (for syntax highlighting – [full instructions](https://github.com/babel/babel-sublime#installation))
-* SublimeLinter ([full instructions](http://sublimelinter.readthedocs.org/en/latest/installation.html))
-* SublimeLinter-contrib-eslint ([full instructions](https://github.com/roadhump/SublimeLinter-eslint#plugin-installation))
-
-To get proper syntax highlighting, go to a .js file, then select the following through the *View* dropdown menu: *Syntax* -> *Open all with current extension as...* -> *Babel* -> *JavaScript (Babel)*. If you are using React .jsx files, do the same from a .jsx file. If it's working, you will see "JavaScript (Babel)" in the lower right hand corner of the window when you are on one of these files. Refer to the [package readme](https://github.com/babel/babel-sublime) for information on compatible color schemes.
-
-A side note for Emmet users: You can use *\<ctrl-e\>* to expand HTML tags in .jsx files, and it will correctly expand classes to React's "className" property. You can bind to the tab key for this, but [you may not want to](https://github.com/sergeche/emmet-sublime/issues/548).
-
-#### Atom
-
-Install the following three Atom packages. Here's how to install them from the terminal, but you can also select them from within Atom:
-
-```bash
-apm install language-babel
-apm install linter
-apm install linter-eslint
-```
-
-Go to *Settings -> Packages.* Under "linter-eslint", click the *Settings* button. To allow atom to see ESLint, you need to set "Global Node Path" to your Node path. As indicated in Atom, you can find this out with the following command in the terminal:
-
-```
-npm get prefix
-```
-
-This will return something like `/usr/local`. Add this to the "Global Node Path", and check "Use Global Eslint":
-
-![Set your "Global Node Path" and check "Use Global Eslint"](images/atom-configuration.png)
-
-Then **restart** (or **reload** by pressing Ctrl+Alt+R / Cmd+Opt+R) Atom to activate linting.
-
-#### WebStorm
-
-WebStorm provides [these instructions for using ESLint](https://www.jetbrains.com/webstorm/help/eslint.html). After you install the ESLint Node packages and set up your `package.json`, just enable ESLint and click "Apply". You can configure how WebStorm should find your `.eslintrc` file, but on my machine it worked without any changes. It also automatically suggested switching to "JSX Harmony" syntax highlighting.
-
-![Enable ESLint here.](images/webstorm-configuration.png)
-
-Linting can be activated on WebStorm on a project-by-project basis, or you can set ESLint as a default under Editor > Inspections, choosing the Default profile, checking "ESLint", and applying.
+Lint是最快的发现代码潜在bug的方法，运行linter往往比运行程序和单元测试更快，所以最好是能够随时运行它。在IDE里面设置Lint一开始看起来总是报错，比较扰人，不过长期来看，这个方法有助于你养成良好的代码习惯。在WebStorm中设置ESLint可以参考[these instructions for using ESLint](https://www.jetbrains.com/webstorm/help/eslint.html)。 当你安装完ESLint包并设置好`package.json`以后, 点击Apply以enable ESLint功能。
 
 
 ## Meteor代码规范
 
-The section above talked about JavaScript code in general - you can easily apply it in any JavaScript application, not just with Meteor apps. However, there are some style questions that are Meteor-specific, in particular how to name and structure all of the different components of your app.
+这一节讨论Meteor相关的代码规范，也可以将部分规范应用到其他JavaScript程序里。
+
 
 ### 集合
 
-Collections should be named as a plural noun, in PascalCase. The name of the collection in the database (the first argument to the collection constructor) should be the same as the name of the JavaScript symbol.
+集合(Collections)应该使用PascalCase的复数名词，而和集合对应的数据库集合名词，应该与它名词完全一致。比如：
 
 ```js
 // Defining a collection
 Lists = new Mongo.Collection('Lists');
 ```
 
-Fields in the database should be camelCased just like your JavaScript variable names.
+数据库里面的字段名称应该采用camelCased，与JavaScript里的变量名一致。
 
 ```js
 // Inserting a document with camelCased field names
@@ -193,7 +139,7 @@ Widgets.insert({
 
 ### 方法和发布
 
-Method and publication names should be camelCased, and namespaced to the module they are in:
+方法和发布名称应该是camelCase的，并且用它们的module作为namespace
 
 ```js
 // in imports/api/todos/methods.js
@@ -203,9 +149,9 @@ updateText = new ValidatedMethod({
 });
 ```
 
-Note that this code sample uses the [ValidatedMethod package recommended in the Methods article](methods.html#validated-method). If you aren't using that package, you can use the name as the property passed to `Meteor.methods`.
+注意上面代码使用[ValidatedMethod package recommended in the Methods article](methods.html#validated-method)，如果你不使用那个package，也可以使用传递给`Meteor.methods`一样的名字。
 
-Here's how this naming convention looks when applied to a publication:
+下面是命名习惯如何应用到发布上的:
 
 ```js
 // Naming a publication
@@ -216,25 +162,25 @@ Meteor.publish('lists.public', function listsPublic() {
 
 ### 文件，导出和包
 
-You should use the ES2015 `import` and `export` features to manage your code. This will let you better understand the dependencies between different parts of your code, and it will be easy to know where to look if you need to read the source code of a dependency.
+应该使用ES6的`import`和`export`特性来管理代码，这样能够更深入地了解代码不同部分的依赖。
 
-Each file in your app should represent one logical module. Avoid having catch-all utility modules that export a variety of unrelated functions and symbols. Often, this can mean that it's good to have one class, UI component, or collection per file, but there are cases where it is OK to make an exception, for example if you have a UI component with a small sub-component that isn't used outside of that file.
+代码中每个文件应该代表一个单独的逻辑模块，每个class，UI组件和collection，独立一个文件是一个比较好的习惯，这样能够避免单个模块里面有多个不相关的东西。不过有时也会有一些例外，比如你需要一个不在外部使用的小组件的时候。
 
-When a file represents a single class or UI component, the file should be named the same as the thing it defines, with the same capitalization. So if you have a file that exports a class:
+当文件仅有单个类型和UI组件时，文件名应该和它定义的东西一致。比如导出一个class的文件
 
 ```js
 export default class ClickCounter { ... }
 ```
 
-This class should be defined inside a file called `ClickCounter.js`. When you import it, it'll look like this:
+这个类应该在一个叫做`click_counter.js`的文件里面定义，导入代码如下：
 
 ```js
-import ClickCounter from './ClickCounter.js';
+import ClickCounter from './click_counter.js';
 ```
 
-Note that imports use relative paths, and include the file extension at the end of the file name.
+注意，导入时使用相对路径的，需要把文件后缀放进去。
 
-For [Atmosphere packages](using-packages.html), as the older pre-1.3 `api.export` syntax allowed more than one export per package, you'll tend to see non-default exports used for symbols. For instance:
+在比较早的版本里， `api.export`允许导出多个内容，这样很多可以看到一些非默认导出，比如
 
 ```js
 // You'll need to deconstruct here, as Meteor could export more symbols
@@ -243,35 +189,3 @@ import { Meteor } from 'meteor/meteor';
 // This will not work
 import Meteor from 'meteor/meteor';
 ```
-
-### 模板和组件
-
-
-Since Spacebars templates are always global, can't be imported and exported as modules, and need to have names that are completely unique across the whole app, we recommend naming your Blaze templates with the full path to the namespace, separated by underscores. Underscores are a great choice in this case because then you can easily type the name of the template as one symbol in JavaScript.
-
-```html
-<template name="Lists_show">
-  ...
-</template>
-```
-
-If this template is a "smart" component that loads server data and accesses the router, append `_page` to the name:
-
-```html
-<template name="Lists_show_page">
-  ...
-</template>
-```
-
-Often when you are dealing with templates or UI components, you'll have several closely coupled files to manage. They could be two or more of HTML, CSS, and JavaScript files. In this case, we recommend putting these together in the same directory with the same name:
-
-```
-# The Lists_show template from the Todos example app has 3 files:
-show.html
-show.js
-show.less
-```
-
-The whole directory or path should indicate that these templates are related to the `Lists` module, so it's not necessary to reproduce that information in the file name. Read more about directory structure [above](#javascript-structure).
-
-If you are writing your UI in React, you don't need to use the underscore-split names because you can import and export your components using the JavaScript module system.
